@@ -1,0 +1,30 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+table {
+  width: 80rem;
+  height: 80rem;
+  border-collapse: collapse;
+  border: 1px solid #444;
+}
+
+td {
+  font-size: 5rem;
+  border: 1px solid #444;
+}

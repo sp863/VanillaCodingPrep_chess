@@ -10,6 +10,10 @@ class ChessView {
       }
     }
   }
+
+  getBoard() {
+    return this.#board;
+  }
 }
 
 export default new ChessView();

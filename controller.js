@@ -1,11 +1,8 @@
 import * as model from "./model.js";
 import View from "./View.js";
 
+model.playersInit();
 View.createBoard();
-model.playersInit(View.getBoard());
+View.updateBoard(model.gameData);
 console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
-
-for (const [key, value] of model.gameData.playerWhitePieceList) {
-  console.log(key, value._y, value._x);
-}

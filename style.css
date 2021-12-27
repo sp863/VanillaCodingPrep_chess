@@ -30,9 +30,14 @@ table {
 }
 
 td {
+  width: 10rem;
+  height: 10rem;
   border: 1px solid #444;
-
-  font-size: 5rem;
   text-align: center;
   vertical-align: middle;
+}
+
+img {
+  width: 5rem;
+  height: 5rem;
 }

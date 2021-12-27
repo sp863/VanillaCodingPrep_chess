@@ -1,4 +1,4 @@
 import * as model from "./model.js";
-import view from "./view.js";
+import View from "./View.js";
 
-view.createBoard();
+View.createBoard();

@@ -1,6 +1,8 @@
 export default class Unit {
   _y;
   _x;
+  _rangeDY;
+  _rangeDX;
   _type;
   _color;
   constructor(y, x, type, color, id) {

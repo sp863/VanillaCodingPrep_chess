@@ -25,6 +25,10 @@ class ChessView {
     }
   }
 
+  clearBoard() {
+    this.#board.innerHTML = "";
+  }
+
   generatePieceHTML(key, piece) {
     return `
     <span class="${key}">

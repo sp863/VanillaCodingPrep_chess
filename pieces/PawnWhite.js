@@ -4,11 +4,10 @@ import {
   WHITE_PAWN_MOVE_RANGE_DX,
 } from "../config.js";
 
-export default class Pawn extends Unit {
-  #rangeDY = WHITE_PAWN_MOVE_RANGE_DY;
-  #rangeDX = WHITE_PAWN_MOVE_RANGE_DX;
-
+export default class WhitePawn extends Unit {
   constructor(y, x, type, color) {
     super(y, x, type, color);
+    this._rangeDY = WHITE_PAWN_MOVE_RANGE_DY;
+    this._rangeDX = WHITE_PAWN_MOVE_RANGE_DX;
   }
 }

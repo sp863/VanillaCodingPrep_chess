@@ -3,8 +3,8 @@ import Queen from "./pieces/Queen.js";
 import Bishop from "./pieces/Bishop.js";
 import Knight from "./pieces/Knight.js";
 import Rook from "./pieces/Rook.js";
-import WhitePawn from "./pieces/WhitePawn.js";
-import BlackPawn from "./pieces/BlackPawn.js";
+import WhitePawn from "./pieces/PawnWhite.js";
+import BlackPawn from "./pieces/PawnBlack.js";
 
 export const gameData = {
   playerWhitePieceList: new Map(),

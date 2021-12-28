@@ -33,13 +33,32 @@ class ChessView {
     return `
     <span class="${key}">
       <img
-        class="chess-piece-image"
+        class="chess-piece"
         alt="${piece._color} ${piece._type} piece"
         src="img/${piece._color}_${piece._type}.png"
       />
     </span>
     `;
   }
+
+  addMovePieceHandler(handler) {
+    this.#board.addEventListener("click", handler);
+  }
+  removeMovePieceHandler(handler) {
+    this.#board.removeEventListener("click", handler);
+  }
+
+  // addTargetTileHandler(status) {
+  //   this.#board.addEventListener("click", function (e) {
+  //     if (!status.validPiece) return;
+  //     console.log(e.target);
+  //   });
+  // }
+
+  // removeTargetTileHandler() {
+  //   this.#board.removeEventListener("click", this.addMovePieceHandler);
+  //   console.log("removed");
+  // }
 
   getBoard() {
     return this.#board;

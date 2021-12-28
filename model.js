@@ -9,6 +9,7 @@ import BlackPawn from "./pieces/PawnBlack.js";
 export const gameData = {
   playerWhitePieceList: new Map(),
   playerBlackPieceList: new Map(),
+  playerTurn: "w",
 };
 
 export const playersInit = function () {

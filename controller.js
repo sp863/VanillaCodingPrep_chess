@@ -37,4 +37,24 @@ console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
 
-model.unitMove("wr1", [6, 1], View.tileEmpty, View.getPieceOnTile);
+// //King
+console.log("-------------- King --------------");
+// model.unitMove("wk0", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// //Queen
+console.log("-------------- Queen --------------");
+// model.unitMove("wq0", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// //Bishop
+console.log("-------------- Bishop --------------");
+// model.unitMove("wb1", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// //Knight
+console.log("-------------- Knight --------------");
+// model.unitMove("wn1", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// //Rook
+console.log("-------------- Rook --------------");
+// model.unitMove("wr1", [2, 7], View.tileEmpty, View.getPieceOnTile);
+//Pawn
+console.log("-------------- Pawn --------------");
+// model.unitMove("wp5", [5, 4], View.tileEmpty, View.getPieceOnTile); //true -> one tile
+// model.unitMove("wp5", [4, 4], View.tileEmpty, View.getPieceOnTile); //false -> two tiles
+// model.unitMove("wp5", [5, 5], View.tileEmpty, View.getPieceOnTile); //false
+// model.unitMove("wp5", [5, 3], View.tileEmpty, View.getPieceOnTile); //false

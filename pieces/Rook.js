@@ -13,6 +13,11 @@ export default class Rook extends Unit {
     this._rangeDX = ROOK_MOVE_RANGE_DX;
   }
 
+  _isValidMove(tile, tileEmpty) {
+    // console.log(this._isValidRange(tile), this._noObstacle(tileEmpty));
+    return this._isValidRange(tile) && this._noObstacle(tileEmpty);
+  }
+
   _isValidRange(tile) {
     const [tileY, tileX] = tile;
     for (let i = 0; i < ROOK_DIRECTION_MAX; i++) {

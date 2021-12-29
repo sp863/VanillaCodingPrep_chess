@@ -13,6 +13,11 @@ export default class Bishop extends Unit {
     this._rangeDX = BISHOP_MOVE_RANGE_DX;
   }
 
+  _isValidMove(tile, tileEmpty) {
+    // console.log(this._isValidRange(tile), this._noObstacle(tileEmpty));
+    return this._isValidRange(tile) && this._noObstacle(tileEmpty);
+  }
+
   _isValidRange(tile) {
     const [tileY, tileX] = tile;
     for (let i = 0; i < BISHOP_DIRECTION_MAX; i++) {

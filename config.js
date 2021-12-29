@@ -8,10 +8,10 @@ export const QUEEN_DIRECTION_MAX = 8;
 export const KING_DIRECTION_MAX = 8;
 
 export const WHITE_PAWN_MOVE_RANGE_DY = [-2, -1, -1, -1];
-export const WHITE_PAWN_MOVE_RANGE_DX = [0, -1, 0, -1];
+export const WHITE_PAWN_MOVE_RANGE_DX = [0, -1, 1, 0];
 
 export const BLACK_PAWN_MOVE_RANGE_DY = [2, 1, 1, 1];
-export const BLACK_PAWN_MOVE_RANGE_DX = [0, -1, 0, -1];
+export const BLACK_PAWN_MOVE_RANGE_DX = [0, -1, 1, 0];
 
 export const ROOK_MOVE_RANGE_DY = [-1, 0, 1, 0];
 export const ROOK_MOVE_RANGE_DX = [0, 1, 0, -1];

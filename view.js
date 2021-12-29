@@ -11,13 +11,7 @@ class ChessView {
   }
 
   updateBoard(gameData) {
-    for (const [key, piece] of gameData.playerWhitePieceList) {
-      const y = piece._y;
-      const x = piece._x;
-      const targetTile = this.#board.rows[y].cells[x];
-      targetTile.innerHTML = this.generatePieceHTML(key, piece);
-    }
-    for (const [key, piece] of gameData.playerBlackPieceList) {
+    for (const [key, piece] of gameData.totalPieceList) {
       const y = piece._y;
       const x = piece._x;
       const targetTile = this.#board.rows[y].cells[x];
@@ -65,7 +59,8 @@ class ChessView {
 
   tileEmpty(tileY, tileX) {
     const tempBoard = document.getElementById("chessboard");
-    return tempBoard.rows[tileY].cells[tileX] === "";
+    // console.log(tempBoard.rows[tileY].cells[tileX]);
+    return tempBoard.rows[tileY].cells[tileX].children[0] === undefined;
   }
 
   getPieceOnTile(tile) {

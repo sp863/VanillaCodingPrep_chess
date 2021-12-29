@@ -36,8 +36,8 @@ const checkMove = function () {
 // };
 
 gameInit();
-controlMove();
-
 console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
+
+model.test();

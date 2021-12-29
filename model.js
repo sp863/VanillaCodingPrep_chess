@@ -16,7 +16,17 @@ export const gameData = {
 export const playersInit = function () {
   playerWhiteInit();
   playerBlackInit();
-  gameData.totalPieceList = new Map([...first]);
+  gameData.totalPieceList = new Map([
+    ...gameData.playerWhitePieceList,
+    ...gameData.playerBlackPieceList,
+  ]);
+};
+
+export const test = function () {
+  gameData.totalPieceList.get("wk0")._y = -100;
+  gameData.totalPieceList.get("wk0")._x = -100;
+  console.log("***************************************");
+  console.log(gameData.playerWhitePieceList);
 };
 
 const playerWhiteInit = function () {

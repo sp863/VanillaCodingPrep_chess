@@ -86,7 +86,7 @@ class ChessView {
     return tempBoard.rows[tileY].cells[tileX].children[0] === undefined;
   }
 
-  getPieceOnTile(tile) {
+  getElementOnTile(tile) {
     const [tileY, tileX] = tile;
     const tempBoard = document.getElementById("chessboard");
     return tempBoard.rows[tileY].cells[tileX].children[0];

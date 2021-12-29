@@ -37,26 +37,31 @@ console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
 
+//////////////////////////////////////////////////////////
+// TESTING
+console.log(model.isBlackKingOnCheck(View.tileEmpty, View.getElementOnTile));
+console.log(model.isWhiteKingOnCheck(View.tileEmpty, View.getElementOnTile));
+
 // //King
 console.log("-------------- King --------------");
-// model.unitMove("wk0", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// model.unitMove("wk0", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Queen
 console.log("-------------- Queen --------------");
-// model.unitMove("wq0", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// model.unitMove("wq0", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Bishop
 console.log("-------------- Bishop --------------");
-// model.unitMove("wb1", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// model.unitMove("wb1", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Knight
 console.log("-------------- Knight --------------");
-// model.unitMove("wn1", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// model.unitMove("wn1", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Rook
 console.log("-------------- Rook --------------");
-// model.unitMove("wr1", [2, 7], View.tileEmpty, View.getPieceOnTile);
+// model.unitMove("wr1", [2, 7], View.tileEmpty, View.getElementOnTile);
 //Pawn
 console.log("-------------- White Pawn --------------");
-// model.unitMove("wp5", [5, 4], View.tileEmpty, View.getPieceOnTile); //true -> one tile
-// model.unitMove("wp5", [4, 4], View.tileEmpty, View.getPieceOnTile); //false -> two tiles
-// model.unitMove("wp5", [5, 5], View.tileEmpty, View.getPieceOnTile); //false
-// model.unitMove("wp5", [5, 3], View.tileEmpty, View.getPieceOnTile); //false
+// model.unitMove("wp5", [5, 4], View.tileEmpty, View.getElementOnTile); //true -> one tile
+// model.unitMove("wp5", [4, 4], View.tileEmpty, View.getElementOnTile); //false -> two tiles
+// model.unitMove("wp5", [5, 5], View.tileEmpty, View.getElementOnTile); //false
+// model.unitMove("wp5", [5, 3], View.tileEmpty, View.getElementOnTile); //false
 console.log("-------------- Black Pawn --------------");
-// model.unitMove("bp5", [2, 4], View.tileEmpty, View.getPieceOnTile); //false
+// model.unitMove("bp5", [2, 4], View.tileEmpty, View.getElementOnTile); //false

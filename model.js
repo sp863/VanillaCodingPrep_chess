@@ -29,20 +29,50 @@ export const playersInit = function () {
   ]);
 };
 
-export const unitMove = function (id, tile, tileEmpty, getPieceOnTile) {
+export const unitMove = function (id, tile, tileEmpty, getElementOnTile) {
   const unit = gameData.totalPieceList.get(id);
-  const piece = getPieceOnTile(tile);
-  if (unit._isValidMove(tile, tileEmpty) && this.isOpponent(unit, piece)) {
+  const oppElement = getElementOnTile(tile);
+  if (unit._isValidMove(tile, tileEmpty) && this.isOpponent(unit, oppElement)) {
     console.log("move chess piece");
     unit._isMoved = true;
   }
 };
 
-export const isOpponent = function (unit, piece) {
-  if (!piece) return true;
-  const targetPiece = gameData.totalPieceList.get(piece.className);
-  if (targetPiece._color !== unit._color) return true;
+export const isOpponent = function (unit, oppElement) {
+  if (!oppElement) return true;
+  const targetElement = gameData.totalPieceList.get(oppElement.className);
+  if (targetElement._color !== unit._color) return true;
   else return false;
+};
+
+export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
+  const king = gameData.playerWhitePieceList.get("wk0");
+  const kingTile = [king._y, king._x];
+  const kingElement = getElementOnTile(kingTile);
+  for (const [_, unit] of gameData.playerBlackPieceList) {
+    if (
+      unit._isValidMove(kingTile, tileEmpty) &&
+      this.isOpponent(unit, kingElement)
+    ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
+  const king = gameData.playerBlackPieceList.get("bk0");
+  const kingTile = [king._y, king._x];
+  const kingElement = getElementOnTile(kingTile);
+  for (const [_, unit] of gameData.playerWhitePieceList) {
+    if (
+      unit._isValidMove(kingTile, tileEmpty) &&
+      this.isOpponent(unit, kingElement)
+    ) {
+      return true;
+    }
+  }
+  return false;
 };
 
 const playerWhiteInit = function () {

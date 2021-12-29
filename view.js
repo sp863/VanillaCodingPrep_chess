@@ -1,14 +1,39 @@
+import { BOARD_LENGTH } from "./config.js";
+
 class ChessView {
   #board = document.getElementById("chessboard");
 
   createBoard() {
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < BOARD_LENGTH; i++) {
       const row = this.#board.insertRow();
-      for (let j = 0; j < 8; j++) {
+      for (let j = 0; j < BOARD_LENGTH; j++) {
         const cell = row.insertCell();
       }
     }
   }
+
+  designBoard() {
+    for (let i = 0; i < BOARD_LENGTH; i++) {
+      for (let j = 0; j < BOARD_LENGTH; j++) {
+        if (i % 2 === 0) {
+          if (j % 2 === 0) {
+            this.#board.rows[i].cells[j].style.backgroundColor = "#ffe8d6";
+          } else {
+            this.#board.rows[i].cells[j].style.backgroundColor = "#b98b73";
+          }
+        } else {
+          if (j % 2 === 0) {
+            this.#board.rows[i].cells[j].style.backgroundColor = "#b98b73";
+          } else {
+            this.#board.rows[i].cells[j].style.backgroundColor = "#ffe8d6";
+          }
+        }
+      }
+    }
+  }
+
+  // -white : #ffe8d6
+  // -black : #b98b73
 
   updateBoard(gameData) {
     for (const [key, piece] of gameData.totalPieceList) {

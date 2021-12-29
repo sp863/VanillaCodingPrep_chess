@@ -16,14 +16,12 @@ export default class WhitePawn extends Unit {
 
   _updatePawnRange(tile, tileEmpty) {
     const [y, x] = tile;
-    // console.log(this._isMoved, tileEmpty(y, x));
     if (this._isMoved) this.#rangeStartIdx = 1;
     if (x !== this._x && tileEmpty(y, x)) this.#rangeStartIdx = 3;
   }
 
   _isValidMove(tile, tileEmpty) {
     this._updatePawnRange(tile, tileEmpty);
-    // console.log(this._isValidRange(tile));
     return this._isValidRange(tile);
   }
 

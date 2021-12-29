@@ -11,6 +11,7 @@ const gameInit = function () {
   View.clearBoard();
   model.playersInit();
   View.createBoard();
+  View.designBoard();
   View.updateBoard(model.gameData);
 };
 
@@ -53,8 +54,10 @@ console.log("-------------- Knight --------------");
 console.log("-------------- Rook --------------");
 // model.unitMove("wr1", [2, 7], View.tileEmpty, View.getPieceOnTile);
 //Pawn
-console.log("-------------- Pawn --------------");
+console.log("-------------- White Pawn --------------");
 // model.unitMove("wp5", [5, 4], View.tileEmpty, View.getPieceOnTile); //true -> one tile
 // model.unitMove("wp5", [4, 4], View.tileEmpty, View.getPieceOnTile); //false -> two tiles
 // model.unitMove("wp5", [5, 5], View.tileEmpty, View.getPieceOnTile); //false
 // model.unitMove("wp5", [5, 3], View.tileEmpty, View.getPieceOnTile); //false
+console.log("-------------- Black Pawn --------------");
+// model.unitMove("bp5", [2, 4], View.tileEmpty, View.getPieceOnTile); //false

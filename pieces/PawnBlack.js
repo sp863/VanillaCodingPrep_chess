@@ -17,7 +17,7 @@ export default class BlackPawn extends Unit {
   _updatePawnRange(tile, tileEmpty) {
     const [y, x] = tile;
     if (this._isMoved) this.#rangeStartIdx = 1;
-    if (tileEmpty(y, x)) this.#rangeStartIdx = 3;
+    if (x !== this._x && tileEmpty(y, x)) this.#rangeStartIdx = 3;
   }
 
   _isValidMove(tile, tileEmpty) {

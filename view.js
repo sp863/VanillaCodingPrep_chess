@@ -63,9 +63,9 @@ class ChessView {
   //   console.log("removed");
   // }
 
-  tileOccupied(tile) {
-    const [tileY, tileX] = tile;
-    return this.#board.rows[tileY].cells[tileX] === "";
+  tileEmpty(tileY, tileX) {
+    const tempBoard = document.getElementById("chessboard");
+    return tempBoard.rows[tileY].cells[tileX] === "";
   }
 
   getBoard() {

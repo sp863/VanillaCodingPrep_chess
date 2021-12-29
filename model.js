@@ -29,9 +29,10 @@ export const playersInit = function () {
   ]);
 };
 
-export const unitMove = function (id, tile, notOccupied) {
+export const unitMove = function (id, tile, tileEmpty) {
   const unit = gameData.totalPieceList.get(id);
-  if (unit._isValidRange(tile) && unit._noObstacle(notOccupied)) {
+  console.log(unit._isValidRange(tile), unit._noObstacle(tileEmpty));
+  if (unit._isValidRange(tile) && unit._noObstacle(tileEmpty)) {
     console.log("move chess piece");
   }
 };

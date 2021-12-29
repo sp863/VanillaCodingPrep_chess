@@ -33,11 +33,12 @@ export default class Bishop extends Unit {
     return false;
   }
 
-  _noObstacle(notOccupied) {
+  _noObstacle(tileEmpty) {
     for (let i = 1; i < this.#distanceToTarget; i++) {
       const tempY = this._y + BISHOP_MOVE_RANGE_DY[this.#direction] * i;
       const tempX = this._x + BISHOP_MOVE_RANGE_DX[this.#direction] * i;
-      return notOccupied;
+      if (!tileEmpty(tempY, tempX)) return false;
     }
+    return true;
   }
 }

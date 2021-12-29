@@ -7,8 +7,6 @@ import {
 } from "../config.js";
 
 export default class Bishop extends Unit {
-  #distanceToTarget;
-  #direction;
   constructor(y, x, type, color) {
     super(y, x, type, color);
     this._rangeDY = BISHOP_MOVE_RANGE_DY;
@@ -22,9 +20,9 @@ export default class Bishop extends Unit {
         const tempY = this._y + this._rangeDY[i] * j;
         const tempX = this._x + this._rangeDX[i] * j;
         if (this._checkBoardRange(tempY, tempX)) {
-          if (tempY == tileY && tempX == tileX) {
-            this.#direction = i;
-            this.#distanceToTarget = j;
+          if (tempY === tileY && tempX === tileX) {
+            this._direction = i;
+            this._distanceToTarget = j;
             return true;
           }
         }
@@ -34,9 +32,9 @@ export default class Bishop extends Unit {
   }
 
   _noObstacle(tileEmpty) {
-    for (let i = 1; i < this.#distanceToTarget; i++) {
-      const tempY = this._y + BISHOP_MOVE_RANGE_DY[this.#direction] * i;
-      const tempX = this._x + BISHOP_MOVE_RANGE_DX[this.#direction] * i;
+    for (let i = 1; i < this._distanceToTarget; i++) {
+      const tempY = this._y + BISHOP_MOVE_RANGE_DY[this._direction] * i;
+      const tempX = this._x + BISHOP_MOVE_RANGE_DX[this._direction] * i;
       if (!tileEmpty(tempY, tempX)) return false;
     }
     return true;

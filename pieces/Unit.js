@@ -7,6 +7,8 @@ export default class Unit {
   _rangeDX;
   _type;
   _color;
+  _distanceToTarget;
+  _direction;
   constructor(y, x, type, color, id) {
     this._y = y;
     this._x = x;

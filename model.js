@@ -29,16 +29,21 @@ export const playersInit = function () {
   ]);
 };
 
-const isOpponent = function (unit, piece) {
+export const isOpponent = function (unit, piece) {
   if (!piece) return true;
   const targetPiece = gameData.totalPieceList.get(piece.className);
-  if (unit._color !== targetPiece._color) return true;
+  if (targetPiece._color !== unit._color) return true;
   else return false;
 };
 
 export const unitMove = function (id, tile, tileEmpty, getPieceOnTile) {
   const unit = gameData.totalPieceList.get(id);
   const piece = getPieceOnTile(tile);
+  console.log(
+    unit._isValidRange(tile),
+    unit._noObstacle(tileEmpty),
+    this.isOpponent(unit, piece)
+  );
   if (
     unit._isValidRange(tile) &&
     unit._noObstacle(tileEmpty) &&

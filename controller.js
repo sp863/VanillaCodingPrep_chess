@@ -37,4 +37,4 @@ console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
 
-View.getPieceOnTile([2, 0]);
+model.unitMove("wr1", [6, 1], View.tileEmpty, View.getPieceOnTile);

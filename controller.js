@@ -20,7 +20,6 @@ const movePieceHandler = function (e) {
   if (pieceId[0] !== gamePlayStatus.turn) return;
   gamePlayStatus.validPiece = true;
   gamePlayStatus.currentPiece = pieceId;
-  console.log("x");
 };
 
 const controlMove = function () {
@@ -41,3 +40,4 @@ controlMove();
 
 console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
+console.log(model.gameData.totalPieceList);

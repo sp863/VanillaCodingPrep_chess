@@ -9,12 +9,14 @@ import BlackPawn from "./pieces/PawnBlack.js";
 export const gameData = {
   playerWhitePieceList: new Map(),
   playerBlackPieceList: new Map(),
+  totalPieceList: new Map(),
   playerTurn: "w",
 };
 
 export const playersInit = function () {
   playerWhiteInit();
   playerBlackInit();
+  gameData.totalPieceList = new Map([...first]);
 };
 
 const playerWhiteInit = function () {
@@ -50,3 +52,5 @@ const playerBlackInit = function (board) {
     );
   }
 };
+
+const unitMove = function (id, coords) {};

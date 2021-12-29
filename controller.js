@@ -22,14 +22,11 @@ const movePieceHandler = function (e) {
   gamePlayStatus.currentPiece = pieceId;
 };
 
-const controlMove = function () {
-  View.addMovePieceHandler(movePieceHandler);
-  View.removeMovePieceHandler(movePieceHandler);
-  // if (gamePlayStatus.validPiece) checkMove();
-};
-const checkMove = function () {
-  console.log("are you running");
-};
+// const controlMove = function () {
+//   View.addMovePieceHandler(movePieceHandler);
+//   View.removeMovePieceHandler(movePieceHandler);
+//   // if (gamePlayStatus.validPiece) checkMove();
+// };
 
 // const controlTile = function () {
 //   View.addTargetTileHandler(gamePlayStatus);
@@ -40,4 +37,4 @@ console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
 
-model.test();
+model.unitMove("wb1", [5, 4], View.tileOccupied([5, 4]));

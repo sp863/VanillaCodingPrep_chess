@@ -13,6 +13,13 @@ export const gameData = {
   playerTurn: "w",
 };
 
+const checkBoardRange = function (y, x) {
+  if (y < 0 || y >= BOARD_LENGTH || x < 0 || x >= BOARD_LENGTH) {
+    return false;
+  }
+  return true;
+};
+
 export const playersInit = function () {
   playerWhiteInit();
   playerBlackInit();
@@ -22,11 +29,11 @@ export const playersInit = function () {
   ]);
 };
 
-export const test = function () {
-  gameData.totalPieceList.get("wk0")._y = -100;
-  gameData.totalPieceList.get("wk0")._x = -100;
-  console.log("***************************************");
-  console.log(gameData.playerWhitePieceList);
+export const unitMove = function (id, tile, notOccupied) {
+  const unit = gameData.totalPieceList.get(id);
+  if (unit._isValidRange(tile) && unit._noObstacle(notOccupied)) {
+    console.log("move chess piece");
+  }
 };
 
 const playerWhiteInit = function () {
@@ -62,5 +69,3 @@ const playerBlackInit = function (board) {
     );
   }
 };
-
-const unitMove = function (id, coords) {};

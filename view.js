@@ -41,9 +41,12 @@ class ChessView {
     `;
   }
 
-  addMovePieceHandler(handler) {
-    this.#board.addEventListener("click", handler);
-  }
+  // addMovePieceHandler(handler) {
+  //   this.#board.addEventListener("click", function() {
+
+  //   });
+  // }
+
   removeMovePieceHandler(handler) {
     this.#board.removeEventListener("click", handler);
   }
@@ -59,6 +62,11 @@ class ChessView {
   //   this.#board.removeEventListener("click", this.addMovePieceHandler);
   //   console.log("removed");
   // }
+
+  tileOccupied(tile) {
+    const [tileY, tileX] = tile;
+    return this.#board.rows[tileY].cells[tileX] === "";
+  }
 
   getBoard() {
     return this.#board;

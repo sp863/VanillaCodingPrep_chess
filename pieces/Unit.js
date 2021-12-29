@@ -1,3 +1,5 @@
+import { BOARD_LENGTH } from "../config.js";
+
 export default class Unit {
   _y;
   _x;
@@ -10,5 +12,12 @@ export default class Unit {
     this._x = x;
     this._type = type;
     this._color = color;
+  }
+
+  _checkBoardRange(y, x) {
+    if (y < 0 || y >= BOARD_LENGTH || x < 0 || x >= BOARD_LENGTH) {
+      return false;
+    }
+    return true;
   }
 }

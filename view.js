@@ -68,6 +68,12 @@ class ChessView {
     return tempBoard.rows[tileY].cells[tileX] === "";
   }
 
+  getPieceOnTile(tile) {
+    const [tileY, tileX] = tile;
+    const tempBoard = document.getElementById("chessboard");
+    return tempBoard.rows[tileY].cells[tileX].children[0];
+  }
+
   getBoard() {
     return this.#board;
   }

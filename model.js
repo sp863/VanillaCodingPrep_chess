@@ -29,10 +29,21 @@ export const playersInit = function () {
   ]);
 };
 
-export const unitMove = function (id, tile, tileEmpty) {
+const isOpponent = function (unit, piece) {
+  if (!piece) return true;
+  const targetPiece = gameData.totalPieceList.get(piece.className);
+  if (unit._color !== targetPiece._color) return true;
+  else return false;
+};
+
+export const unitMove = function (id, tile, tileEmpty, getPieceOnTile) {
   const unit = gameData.totalPieceList.get(id);
-  console.log(unit._isValidRange(tile), unit._noObstacle(tileEmpty));
-  if (unit._isValidRange(tile) && unit._noObstacle(tileEmpty)) {
+  const piece = getPieceOnTile(tile);
+  if (
+    unit._isValidRange(tile) &&
+    unit._noObstacle(tileEmpty) &&
+    this.isOpponent(unit, piece)
+  ) {
     console.log("move chess piece");
   }
 };

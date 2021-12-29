@@ -13,7 +13,6 @@ export default class Knight extends Unit {
   }
 
   _isValidMove(tile, _) {
-    // console.log(this._isValidRange(tile));
     return this._isValidRange(tile);
   }
 

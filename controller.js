@@ -11,7 +11,6 @@ const gameInit = function () {
   View.clearBoard();
   model.playersInit();
   View.createBoard();
-  View.designBoard();
   View.updateBoard(model.gameData);
 };
 

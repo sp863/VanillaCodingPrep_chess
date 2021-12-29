@@ -10,6 +10,7 @@ class ChessView {
         const cell = row.insertCell();
       }
     }
+    this.designBoard();
   }
 
   designBoard() {
@@ -31,9 +32,6 @@ class ChessView {
       }
     }
   }
-
-  // -white : #ffe8d6
-  // -black : #b98b73
 
   updateBoard(gameData) {
     for (const [key, piece] of gameData.totalPieceList) {

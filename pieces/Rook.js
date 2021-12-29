@@ -14,7 +14,6 @@ export default class Rook extends Unit {
   }
 
   _isValidMove(tile, tileEmpty) {
-    // console.log(this._isValidRange(tile), this._noObstacle(tileEmpty));
     return this._isValidRange(tile) && this._noObstacle(tileEmpty);
   }
 

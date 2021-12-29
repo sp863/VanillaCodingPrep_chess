@@ -15,11 +15,13 @@ html {
 }
 
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Montserrat", sans-serif;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5rem;
 }
 
 table {
@@ -38,10 +40,28 @@ td {
 }
 
 img {
-  width: 5rem;
-  height: 5rem;
+  width: 6rem;
+  height: 6rem;
 }
 
 img:hover {
   cursor: pointer;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.header-title {
+  font-family: "Pushster", cursive;
+  font-size: 7rem;
+}
+
+.header-my-name {
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
 }

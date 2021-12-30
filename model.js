@@ -147,6 +147,12 @@ export const isOpponent = function (unit, oppElement) {
 /////////////////////////////////////////////////////////////////////////////////////
 // KING ON CHECK
 /////////////////////////////////////////////////////////////////////////////////////
+
+export const updateKingOnCheck = function (tileEmpty, getElementOnTile) {
+  isWhiteKingOnCheck(tileEmpty, getElementOnTile);
+  isBlackKingOnCheck(tileEmpty, getElementOnTile);
+};
+
 export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
   const king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
   const kingTile = [king._y, king._x];
@@ -154,12 +160,14 @@ export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
   for (const [_, unit] of gameData.playerBlackPieceList) {
     if (
       unit._isValidMove(kingTile, tileEmpty) &&
-      this.isOpponent(unit, kingElement)
+      isOpponent(unit, kingElement)
     ) {
-      return true;
+      king._onCheck = true;
+      console.log("white king on check " + king._onCheck);
+      return;
     }
   }
-  return false;
+  king._onCheck = false;
 };
 
 export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
@@ -169,18 +177,32 @@ export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
   for (const [_, unit] of gameData.playerWhitePieceList) {
     if (
       unit._isValidMove(kingTile, tileEmpty) &&
-      this.isOpponent(unit, kingElement)
+      isOpponent(unit, kingElement)
     ) {
-      return true;
+      king._onCheck = true;
+      console.log("black king on check " + king._onCheck);
+      return;
     }
   }
-  return false;
+  king._onCheck = false;
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
 // PAWN PROMOTION
 /////////////////////////////////////////////////////////////////////////////////////
-export const pawnPromotion = function (pawnId, promoteTo) {
+export const checkPawnPromotion = function (id) {
+  const unit = gameData.totalPieceList.get(id);
+  if (unit._type !== "pawn") return;
+  if (unit._y !== 7 && unit._y !== 0) return;
+  let promoteTo = "";
+  while (true) {
+    promoteTo = Number(prompt(PAWN_PROMOTION_MESSAGE));
+    if (promoteTo >= 1 && promoteTo <= 4) break;
+  }
+  promotePawn(id, gamePlayStatus.pawnName[promoteTo - 1]);
+};
+
+export const promotePawn = function (pawnId, promoteTo) {
   const pawn = gameData.totalPieceList.get(pawnId);
   const color = pawn._color;
   if (color === "white") {

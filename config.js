@@ -65,3 +65,6 @@ export const BLACK_PAWN5_ID = "bp5";
 export const BLACK_PAWN6_ID = "bp6";
 export const BLACK_PAWN7_ID = "bp7";
 export const BLACK_PAWN8_ID = "bp8";
+
+export const PAWN_PROMOTION_MESSAGE =
+  "Promote your Pawn to ->\n1. Queen\n2. Bishop\n3. Knight\n4. Rook";

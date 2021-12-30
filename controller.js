@@ -1,10 +1,11 @@
 import * as model from "./model.js";
 import View from "./View.js";
+import { PAWN_PROMOTION_MESSAGE } from "./config.js";
 
 const gamePlayStatus = {
   turn: "white",
-  currentPiece: "", ///비어있으면 첫번째 스텝
-  targetTile: "",
+  currentPiece: "",
+  pawnName: ["queen", "bishop", "knight", "rook"],
 };
 
 const gameInit = function () {
@@ -15,7 +16,7 @@ const gameInit = function () {
   View.updateBoard(model.gameData);
 };
 
-const controlBoardMovement = function (e) {
+const controlGame = function (e) {
   const targetTR = e.target.closest("tr");
   const targetTD = e.target.closest("td");
   if (gamePlayStatus.currentPiece === "") {
@@ -30,22 +31,24 @@ const controlBoardMovement = function (e) {
     const id = gamePlayStatus.currentPiece;
     const tile = [targetTR.rowIndex, targetTD.cellIndex];
     if (model.unitMove(id, tile, View.tileEmpty, View.getElementOnTile)) {
+      model.checkPawnPromotion(id);
       model.updateTotalList();
       View.resetBoard(model.gameData);
-      updateTurnData();
-      View.updateTurnInfo(gamePlayStatus.turn);
+      updateTurn();
+      model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
     }
     gamePlayStatus.currentPiece = "";
   }
 };
 
-const updateTurnData = function () {
+const updateTurn = function () {
   if (gamePlayStatus.turn === "white") gamePlayStatus.turn = "black";
   else gamePlayStatus.turn = "white";
+  View.updateTurnInfo(gamePlayStatus.turn);
 };
 
 gameInit();
-View.addBoardMovementHandler(controlBoardMovement);
+View.addBoardMovementHandler(controlGame);
 
 //////////////////////////////////////////////////////////
 // TESTING

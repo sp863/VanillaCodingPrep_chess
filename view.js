@@ -42,6 +42,13 @@ class ChessView {
     }
   }
 
+  choosePieceHandler() {
+    this.#board.addEventListener("click", function (e) {
+      const targetTD = e.target.closest("td");
+      console.log(targetTD);
+    });
+  }
+
   clearBoard() {
     this.#board.innerHTML = "";
   }
@@ -57,12 +64,6 @@ class ChessView {
     </span>
     `;
   }
-
-  // addMovePieceHandler(handler) {
-  //   this.#board.addEventListener("click", function() {
-
-  //   });
-  // }
 
   removeMovePieceHandler(handler) {
     this.#board.removeEventListener("click", handler);

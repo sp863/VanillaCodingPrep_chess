@@ -2,9 +2,10 @@ import * as model from "./model.js";
 import View from "./View.js";
 
 const gamePlayStatus = {
-  turn: "w",
+  turn: "white",
   validPiece: false,
-  currentPiece: "",
+  currentPiece: "", ///비어있으면 첫번째 스텝
+  targetTile: "",
 };
 
 const gameInit = function () {
@@ -14,6 +15,28 @@ const gameInit = function () {
   View.createBoard();
   View.updateBoard(model.gameData);
 };
+
+const choosePieceHandler = function () {
+  document.getElementById("chessboard").addEventListener("click", function (e) {
+    const targetTR = e.target.closest("tr");
+    const targetTD = e.target.closest("td");
+    if (gamePlayStatus.currentPiece === "") {
+      if (
+        targetTD.children[0] !== undefined &&
+        model.gameData.totalPieceList.get(targetTD.children[0].className)
+          ._color === gamePlayStatus.turn
+      ) {
+        gamePlayStatus.currentPiece = targetTD.children[0].className;
+      }
+    } else {
+      const y = targetTR.rowIndex;
+      const x = targetTD.cellIndex;
+      console.log(y, x);
+    }
+  });
+};
+
+choosePieceHandler();
 
 const movePieceHandler = function (e) {
   if (!e.target.closest("span")) return;
@@ -42,9 +65,9 @@ gameInit();
 // console.log(model.isWhiteKingOnCheck(View.tileEmpty, View.getElementOnTile));
 
 // PROMOTION TESTING
-model.pawnPromotion("wp1", "queen");
-model.updateTotalList();
-View.updateBoard(model.gameData);
+// model.pawnPromotion("wp1", "queen");
+// model.updateTotalList();
+// View.updateBoard(model.gameData);
 
 // MOVE TESTING
 // //King

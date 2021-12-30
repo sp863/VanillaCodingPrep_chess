@@ -7,6 +7,9 @@ import WhitePawn from "./pieces/PawnWhite.js";
 import BlackPawn from "./pieces/PawnBlack.js";
 import * as kons from "./config.js";
 
+/////////////////////////////////////////////////////////////////////////////////////
+// GAME DATA
+/////////////////////////////////////////////////////////////////////////////////////
 export const gameData = {
   playerWhitePieceList: new Map(),
   playerBlackPieceList: new Map(),
@@ -14,6 +17,9 @@ export const gameData = {
   playerTurn: "w",
 };
 
+/////////////////////////////////////////////////////////////////////////////////////
+// PLAYER AND PIECES INITIALIZATION
+/////////////////////////////////////////////////////////////////////////////////////
 export const playersInit = function () {
   playerWhiteInit();
   playerBlackInit();
@@ -24,98 +30,6 @@ export const updateTotalList = function () {
     ...gameData.playerWhitePieceList,
     ...gameData.playerBlackPieceList,
   ]);
-};
-
-export const unitMove = function (id, tile, tileEmpty, getElementOnTile) {
-  const unit = gameData.totalPieceList.get(id);
-  const oppElement = getElementOnTile(tile);
-  if (unit._isValidMove(tile, tileEmpty) && this.isOpponent(unit, oppElement)) {
-    console.log("move chess piece");
-    unit._isMoved = true;
-  }
-};
-
-export const isOpponent = function (unit, oppElement) {
-  if (!oppElement) return true;
-  const targetElement = gameData.totalPieceList.get(oppElement.className);
-  if (targetElement._color !== unit._color) return true;
-  else return false;
-};
-
-export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
-  const king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
-  const kingTile = [king._y, king._x];
-  const kingElement = getElementOnTile(kingTile);
-  for (const [_, unit] of gameData.playerBlackPieceList) {
-    if (
-      unit._isValidMove(kingTile, tileEmpty) &&
-      this.isOpponent(unit, kingElement)
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
-  const king = gameData.playerBlackPieceList.get(kons.BLACK_KING_ID);
-  const kingTile = [king._y, king._x];
-  const kingElement = getElementOnTile(kingTile);
-  for (const [_, unit] of gameData.playerWhitePieceList) {
-    if (
-      unit._isValidMove(kingTile, tileEmpty) &&
-      this.isOpponent(unit, kingElement)
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-export const pawnPromotion = function (pawnId, promoteTo) {
-  const pawn = gameData.totalPieceList.get(pawnId);
-  const color = pawn._color;
-  if (color === "white") {
-    gameData.playerWhitePieceList.delete(pawnId);
-    gameData.playerWhitePieceList.set(
-      newUnitId(color, promoteTo),
-      newUnit(pawn, promoteTo)
-    );
-  } else {
-    gameData.playerBlackPieceList.delete(pawnId);
-    gameData.playerBlackPieceList.set(
-      newUnitId(color, promoteTo),
-      newUnit(pawn, promoteTo)
-    );
-  }
-  gameData.totalPieceList.delete(pawnId);
-};
-
-const newUnit = function (pawn, promoteTo) {
-  if (promoteTo === "queen") {
-    return new Queen(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
-  } else if (promoteTo === "bishop") {
-    return new Bishop(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
-  } else if (promoteTo === "knight") {
-    return new Knight(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
-  } else if (promoteTo === "rook") {
-    return new Rook(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
-  }
-  return;
-};
-
-const newUnitId = function (color, promoteTo) {
-  let id = "";
-  const firstLetter = color[0];
-  const secondLetter = promoteTo === "knight" ? promoteTo[1] : promoteTo[0];
-  const thirdLetter =
-    [...gameData.totalPieceList.keys()].filter(function (key) {
-      return key[0] === firstLetter && key[1] === secondLetter;
-    }).length +
-    1 +
-    "";
-  id = firstLetter + secondLetter + thirdLetter;
-  return id;
 };
 
 const playerWhiteInit = function () {
@@ -198,4 +112,105 @@ const playerBlackInit = function (board) {
       new BlackPawn(1, i, "pawn", "black")
     );
   }
+};
+
+/////////////////////////////////////////////////////////////////////////////////////
+// UNIT MOVEMENT
+/////////////////////////////////////////////////////////////////////////////////////
+export const unitMove = function (id, tile, tileEmpty, getElementOnTile) {
+  const unit = gameData.totalPieceList.get(id);
+  const oppElement = getElementOnTile(tile);
+  if (unit._isValidMove(tile, tileEmpty) && this.isOpponent(unit, oppElement)) {
+    console.log("move chess piece");
+    unit._isMoved = true;
+  }
+};
+
+export const isOpponent = function (unit, oppElement) {
+  if (!oppElement) return true;
+  const targetElement = gameData.totalPieceList.get(oppElement.className);
+  if (targetElement._color !== unit._color) return true;
+  else return false;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////
+// KING ON CHECK
+/////////////////////////////////////////////////////////////////////////////////////
+export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
+  const king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
+  const kingTile = [king._y, king._x];
+  const kingElement = getElementOnTile(kingTile);
+  for (const [_, unit] of gameData.playerBlackPieceList) {
+    if (
+      unit._isValidMove(kingTile, tileEmpty) &&
+      this.isOpponent(unit, kingElement)
+    ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
+  const king = gameData.playerBlackPieceList.get(kons.BLACK_KING_ID);
+  const kingTile = [king._y, king._x];
+  const kingElement = getElementOnTile(kingTile);
+  for (const [_, unit] of gameData.playerWhitePieceList) {
+    if (
+      unit._isValidMove(kingTile, tileEmpty) &&
+      this.isOpponent(unit, kingElement)
+    ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////
+// PAWN PROMOTION
+/////////////////////////////////////////////////////////////////////////////////////
+export const pawnPromotion = function (pawnId, promoteTo) {
+  const pawn = gameData.totalPieceList.get(pawnId);
+  const color = pawn._color;
+  if (color === "white") {
+    gameData.playerWhitePieceList.delete(pawnId);
+    gameData.playerWhitePieceList.set(
+      newUnitId(color, promoteTo),
+      newUnit(pawn, promoteTo)
+    );
+  } else {
+    gameData.playerBlackPieceList.delete(pawnId);
+    gameData.playerBlackPieceList.set(
+      newUnitId(color, promoteTo),
+      newUnit(pawn, promoteTo)
+    );
+  }
+  gameData.totalPieceList.delete(pawnId);
+};
+
+const newUnit = function (pawn, promoteTo) {
+  if (promoteTo === "queen") {
+    return new Queen(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  } else if (promoteTo === "bishop") {
+    return new Bishop(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  } else if (promoteTo === "knight") {
+    return new Knight(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  } else if (promoteTo === "rook") {
+    return new Rook(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  }
+  return;
+};
+
+const newUnitId = function (color, promoteTo) {
+  let id = "";
+  const firstLetter = color[0];
+  const secondLetter = promoteTo === "knight" ? promoteTo[1] : promoteTo[0];
+  const thirdLetter =
+    [...gameData.totalPieceList.keys()].filter(function (key) {
+      return key[0] === firstLetter && key[1] === secondLetter;
+    }).length +
+    1 +
+    "";
+  id = firstLetter + secondLetter + thirdLetter;
+  return id;
 };

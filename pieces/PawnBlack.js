@@ -27,15 +27,17 @@ export default class BlackPawn extends Unit {
 
   _isValidRange(tile) {
     const [tileY, tileX] = tile;
-    for (let i = 0; i < PAWN_DIRECTION_MAX; i++) {
+    for (let i = this.#rangeStartIdx; i < PAWN_DIRECTION_MAX; i++) {
       const tempY = this._y + this._rangeDY[i];
       const tempX = this._x + this._rangeDX[i];
       if (this._checkBoardRange(tempY, tempX)) {
         if (tempY === tileY && tempX === tileX) {
+          this.#rangeStartIdx = 0;
           return true;
         }
       }
     }
+    this.#rangeStartIdx = 0;
     return false;
   }
 }

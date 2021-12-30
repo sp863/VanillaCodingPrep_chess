@@ -119,17 +119,28 @@ const playerBlackInit = function (board) {
 /////////////////////////////////////////////////////////////////////////////////////
 export const unitMove = function (id, tile, tileEmpty, getElementOnTile) {
   const unit = gameData.totalPieceList.get(id);
+  const [tileY, tileX] = tile;
   const oppElement = getElementOnTile(tile);
   if (unit._isValidMove(tile, tileEmpty) && this.isOpponent(unit, oppElement)) {
-    console.log("move chess piece");
+    unit._y = tileY;
+    unit._x = tileX;
+    if (oppElement) {
+      const targetPiece = gameData.totalPieceList.get(oppElement.className);
+      const targetId = oppElement.className;
+      if (targetPiece._color === "white")
+        gameData.playerWhitePieceList.delete(targetId);
+      else gameData.playerBlackPieceList.delete(targetId);
+    }
     unit._isMoved = true;
+    return true;
   }
+  return false;
 };
 
 export const isOpponent = function (unit, oppElement) {
   if (!oppElement) return true;
-  const targetElement = gameData.totalPieceList.get(oppElement.className);
-  if (targetElement._color !== unit._color) return true;
+  const targetPiece = gameData.totalPieceList.get(oppElement.className);
+  if (targetPiece._color !== unit._color) return true;
   else return false;
 };
 

@@ -42,15 +42,33 @@ class ChessView {
     }
   }
 
+  clearBoard() {
+    this.#board.innerHTML = "";
+  }
+
+  resetBoard(gameData) {
+    this.clearBoard();
+    this.createBoard();
+    this.updateBoard(gameData);
+  }
+
+  updateTurnInfo(turn) {
+    const turnInfo = document.querySelector(".turn-info");
+    turnInfo.textContent = `${turn} turn`;
+    if (turn === "white") {
+      turnInfo.style.backgroundColor = "#edf2f4";
+      turnInfo.style.color = "#343a40";
+    } else {
+      turnInfo.style.backgroundColor = "#073b4c";
+      turnInfo.style.color = "#f8f9fa";
+    }
+  }
+
   choosePieceHandler() {
     this.#board.addEventListener("click", function (e) {
       const targetTD = e.target.closest("td");
       console.log(targetTD);
     });
-  }
-
-  clearBoard() {
-    this.#board.innerHTML = "";
   }
 
   generatePieceHTML(key, piece) {
@@ -65,8 +83,10 @@ class ChessView {
     `;
   }
 
-  removeMovePieceHandler(handler) {
-    this.#board.removeEventListener("click", handler);
+  addBoardMovementHandler(handler) {
+    this.#board.addEventListener("click", function (e) {
+      handler(e);
+    });
   }
 
   tileEmpty(tileY, tileX) {

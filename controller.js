@@ -3,7 +3,6 @@ import View from "./View.js";
 
 const gamePlayStatus = {
   turn: "white",
-  validPiece: false,
   currentPiece: "", ///비어있으면 첫번째 스텝
   targetTile: "",
 };
@@ -16,43 +15,37 @@ const gameInit = function () {
   View.updateBoard(model.gameData);
 };
 
-const choosePieceHandler = function () {
-  document.getElementById("chessboard").addEventListener("click", function (e) {
-    const targetTR = e.target.closest("tr");
-    const targetTD = e.target.closest("td");
-    if (gamePlayStatus.currentPiece === "") {
-      if (
-        targetTD.children[0] !== undefined &&
-        model.gameData.totalPieceList.get(targetTD.children[0].className)
-          ._color === gamePlayStatus.turn
-      ) {
-        gamePlayStatus.currentPiece = targetTD.children[0].className;
-      }
-    } else {
-      const y = targetTR.rowIndex;
-      const x = targetTD.cellIndex;
-      console.log(y, x);
+const controlBoardMovement = function (e) {
+  const targetTR = e.target.closest("tr");
+  const targetTD = e.target.closest("td");
+  if (gamePlayStatus.currentPiece === "") {
+    if (
+      targetTD.children[0] !== undefined &&
+      model.gameData.totalPieceList.get(targetTD.children[0].className)
+        ._color === gamePlayStatus.turn
+    ) {
+      gamePlayStatus.currentPiece = targetTD.children[0].className;
     }
-  });
+  } else {
+    const id = gamePlayStatus.currentPiece;
+    const tile = [targetTR.rowIndex, targetTD.cellIndex];
+    if (model.unitMove(id, tile, View.tileEmpty, View.getElementOnTile)) {
+      model.updateTotalList();
+      View.resetBoard(model.gameData);
+      updateTurnData();
+      View.updateTurnInfo(gamePlayStatus.turn);
+    }
+    gamePlayStatus.currentPiece = "";
+  }
 };
 
-choosePieceHandler();
-
-const movePieceHandler = function (e) {
-  if (!e.target.closest("span")) return;
-  const pieceId = e.target.closest("span").className;
-  if (pieceId[0] !== gamePlayStatus.turn) return;
-  gamePlayStatus.validPiece = true;
-  gamePlayStatus.currentPiece = pieceId;
+const updateTurnData = function () {
+  if (gamePlayStatus.turn === "white") gamePlayStatus.turn = "black";
+  else gamePlayStatus.turn = "white";
 };
-
-// const controlMove = function () {
-//   View.addMovePieceHandler(movePieceHandler);
-//   View.removeMovePieceHandler(movePieceHandler);
-//   // if (gamePlayStatus.validPiece) checkMove();
-// };
 
 gameInit();
+View.addBoardMovementHandler(controlBoardMovement);
 
 //////////////////////////////////////////////////////////
 // TESTING
@@ -71,25 +64,25 @@ gameInit();
 
 // MOVE TESTING
 // //King
-console.log("-------------- King --------------");
+// console.log("-------------- King --------------");
 // model.unitMove("wk0", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Queen
-console.log("-------------- Queen --------------");
+// console.log("-------------- Queen --------------");
 // model.unitMove("wq0", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Bishop
-console.log("-------------- Bishop --------------");
+// console.log("-------------- Bishop --------------");
 // model.unitMove("wb1", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Knight
-console.log("-------------- Knight --------------");
+// console.log("-------------- Knight --------------");
 // model.unitMove("wn1", [2, 7], View.tileEmpty, View.getElementOnTile);
 // //Rook
-console.log("-------------- Rook --------------");
+// console.log("-------------- Rook --------------");
 // model.unitMove("wr1", [2, 7], View.tileEmpty, View.getElementOnTile);
 //Pawn
-console.log("-------------- White Pawn --------------");
+// console.log("-------------- White Pawn --------------");
 // model.unitMove("wp5", [5, 4], View.tileEmpty, View.getElementOnTile); //true -> one tile
 // model.unitMove("wp5", [4, 4], View.tileEmpty, View.getElementOnTile); //false -> two tiles
 // model.unitMove("wp5", [5, 5], View.tileEmpty, View.getElementOnTile); //false
 // model.unitMove("wp5", [5, 3], View.tileEmpty, View.getElementOnTile); //false
-console.log("-------------- Black Pawn --------------");
+// console.log("-------------- Black Pawn --------------");
 // model.unitMove("bp5", [2, 4], View.tileEmpty, View.getElementOnTile); //false

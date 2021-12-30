@@ -65,3 +65,12 @@ img:hover {
   font-size: 2rem;
   letter-spacing: 0.2rem;
 }
+
+.turn-info {
+  font-size: 3rem;
+  padding: 2rem;
+  background-color: #edf2f4;
+  color: #343a40;
+  border-radius: 2rem;
+  text-transform: capitalize;
+}

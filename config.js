@@ -37,11 +37,29 @@ export const WHITE_KNIGHT2_ID = "wn2";
 export const WHITE_ROOK1_ID = "wr1";
 export const WHITE_ROOK2_ID = "wr2";
 
-export const ID = "bk0";
-export const ID = "bq0";
-export const ID = "bb1";
-export const ID = "bb2";
-export const ID = "bn1";
-export const ID = "bn2";
-export const ID = "br1";
-export const ID = "br2";
+export const WHITE_PAWN1_ID = "wp1";
+export const WHITE_PAWN2_ID = "wp2";
+export const WHITE_PAWN3_ID = "wp3";
+export const WHITE_PAWN4_ID = "wp4";
+export const WHITE_PAWN5_ID = "wp5";
+export const WHITE_PAWN6_ID = "wp6";
+export const WHITE_PAWN7_ID = "wp7";
+export const WHITE_PAWN8_ID = "wp8";
+
+export const BLACK_KING_ID = "bk0";
+export const BLACK_QUEEN_ID = "bq0";
+export const BLACK_BISHOP1_ID = "bb1";
+export const BLACK_BISHOP2_ID = "bb2";
+export const BLACK_KNIGHT1_ID = "bn1";
+export const BLACK_KNIGHT2_ID = "bn2";
+export const BLACK_ROOK1_ID = "br1";
+export const BLACK_ROOK2_ID = "br2";
+
+export const BLACK_PAWN1_ID = "bp1";
+export const BLACK_PAWN2_ID = "bp2";
+export const BLACK_PAWN3_ID = "bp3";
+export const BLACK_PAWN4_ID = "bp4";
+export const BLACK_PAWN5_ID = "bp5";
+export const BLACK_PAWN6_ID = "bp6";
+export const BLACK_PAWN7_ID = "bp7";
+export const BLACK_PAWN8_ID = "bp8";

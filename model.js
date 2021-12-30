@@ -5,6 +5,7 @@ import Knight from "./pieces/Knight.js";
 import Rook from "./pieces/Rook.js";
 import WhitePawn from "./pieces/PawnWhite.js";
 import BlackPawn from "./pieces/PawnBlack.js";
+import { WHITE_KING_ID, BLACK_KING_ID } from "./config.js";
 
 export const gameData = {
   playerWhitePieceList: new Map(),
@@ -46,7 +47,7 @@ export const isOpponent = function (unit, oppElement) {
 };
 
 export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
-  const king = gameData.playerWhitePieceList.get("wk0");
+  const king = gameData.playerWhitePieceList.get(WHITE_KING_ID);
   const kingTile = [king._y, king._x];
   const kingElement = getElementOnTile(kingTile);
   for (const [_, unit] of gameData.playerBlackPieceList) {
@@ -61,7 +62,7 @@ export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
 };
 
 export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
-  const king = gameData.playerBlackPieceList.get("bk0");
+  const king = gameData.playerBlackPieceList.get(BLACK_KING_ID);
   const kingTile = [king._y, king._x];
   const kingElement = getElementOnTile(kingTile);
   for (const [_, unit] of gameData.playerWhitePieceList) {

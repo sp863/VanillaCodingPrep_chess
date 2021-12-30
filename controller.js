@@ -10,6 +10,7 @@ const gamePlayStatus = {
 const gameInit = function () {
   View.clearBoard();
   model.playersInit();
+  model.updateTotalList();
   View.createBoard();
   View.updateBoard(model.gameData);
 };
@@ -32,13 +33,20 @@ gameInit();
 
 //////////////////////////////////////////////////////////
 // TESTING
-console.log(model.gameData.playerWhitePieceList);
-console.log(model.gameData.playerBlackPieceList);
-console.log(model.gameData.totalPieceList);
+// console.log(model.gameData.playerWhitePieceList);
+// console.log(model.gameData.playerBlackPieceList);
+// console.log(model.gameData.totalPieceList);
 
-console.log(model.isBlackKingOnCheck(View.tileEmpty, View.getElementOnTile));
-console.log(model.isWhiteKingOnCheck(View.tileEmpty, View.getElementOnTile));
+// KING ON CHECK TESTING
+// console.log(model.isBlackKingOnCheck(View.tileEmpty, View.getElementOnTile));
+// console.log(model.isWhiteKingOnCheck(View.tileEmpty, View.getElementOnTile));
 
+// PROMOTION TESTING
+model.pawnPromotion("wp1", "queen");
+model.updateTotalList();
+View.updateBoard(model.gameData);
+
+// MOVE TESTING
 // //King
 console.log("-------------- King --------------");
 // model.unitMove("wk0", [2, 7], View.tileEmpty, View.getElementOnTile);

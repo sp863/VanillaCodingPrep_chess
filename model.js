@@ -5,7 +5,7 @@ import Knight from "./pieces/Knight.js";
 import Rook from "./pieces/Rook.js";
 import WhitePawn from "./pieces/PawnWhite.js";
 import BlackPawn from "./pieces/PawnBlack.js";
-import { WHITE_KING_ID, BLACK_KING_ID } from "./config.js";
+import * as kons from "./config.js";
 
 export const gameData = {
   playerWhitePieceList: new Map(),
@@ -17,6 +17,9 @@ export const gameData = {
 export const playersInit = function () {
   playerWhiteInit();
   playerBlackInit();
+};
+
+export const updateTotalList = function () {
   gameData.totalPieceList = new Map([
     ...gameData.playerWhitePieceList,
     ...gameData.playerBlackPieceList,
@@ -40,7 +43,7 @@ export const isOpponent = function (unit, oppElement) {
 };
 
 export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
-  const king = gameData.playerWhitePieceList.get(WHITE_KING_ID);
+  const king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
   const kingTile = [king._y, king._x];
   const kingElement = getElementOnTile(kingTile);
   for (const [_, unit] of gameData.playerBlackPieceList) {
@@ -55,7 +58,7 @@ export const isWhiteKingOnCheck = function (tileEmpty, getElementOnTile) {
 };
 
 export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
-  const king = gameData.playerBlackPieceList.get(BLACK_KING_ID);
+  const king = gameData.playerBlackPieceList.get(kons.BLACK_KING_ID);
   const kingTile = [king._y, king._x];
   const kingElement = getElementOnTile(kingTile);
   for (const [_, unit] of gameData.playerWhitePieceList) {
@@ -69,15 +72,85 @@ export const isBlackKingOnCheck = function (tileEmpty, getElementOnTile) {
   return false;
 };
 
+export const pawnPromotion = function (pawnId, promoteTo) {
+  const pawn = gameData.totalPieceList.get(pawnId);
+  const color = pawn._color;
+  if (color === "white") {
+    gameData.playerWhitePieceList.delete(pawnId);
+    gameData.playerWhitePieceList.set(
+      newUnitId(color, promoteTo),
+      newUnit(pawn, promoteTo)
+    );
+  } else {
+    gameData.playerBlackPieceList.delete(pawnId);
+    gameData.playerBlackPieceList.set(
+      newUnitId(color, promoteTo),
+      newUnit(pawn, promoteTo)
+    );
+  }
+  gameData.totalPieceList.delete(pawnId);
+};
+
+const newUnit = function (pawn, promoteTo) {
+  if (promoteTo === "queen") {
+    return new Queen(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  } else if (promoteTo === "bishop") {
+    return new Bishop(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  } else if (promoteTo === "knight") {
+    return new Knight(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  } else if (promoteTo === "rook") {
+    return new Rook(pawn._y, pawn._x, `${promoteTo}`, `${pawn._color}`);
+  }
+  return;
+};
+
+const newUnitId = function (color, promoteTo) {
+  let id = "";
+  const firstLetter = color[0];
+  const secondLetter = promoteTo === "knight" ? promoteTo[1] : promoteTo[0];
+  const thirdLetter =
+    [...gameData.totalPieceList.keys()].filter(function (key) {
+      return key[0] === firstLetter && key[1] === secondLetter;
+    }).length +
+    1 +
+    "";
+  id = firstLetter + secondLetter + thirdLetter;
+  return id;
+};
+
 const playerWhiteInit = function () {
-  gameData.playerWhitePieceList.set("wk0", new King(7, 4, "king", "white"));
-  gameData.playerWhitePieceList.set("wq0", new Queen(7, 3, "queen", "white"));
-  gameData.playerWhitePieceList.set("wb1", new Bishop(7, 2, "bishop", "white"));
-  gameData.playerWhitePieceList.set("wb2", new Bishop(7, 5, "bishop", "white"));
-  gameData.playerWhitePieceList.set("wn1", new Knight(7, 1, "knight", "white"));
-  gameData.playerWhitePieceList.set("wn2", new Knight(7, 6, "knight", "white"));
-  gameData.playerWhitePieceList.set("wr1", new Rook(7, 0, "rook", "white"));
-  gameData.playerWhitePieceList.set("wr2", new Rook(7, 7, "rook", "white"));
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_KING_ID,
+    new King(7, 4, "king", "white")
+  );
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_QUEEN_ID,
+    new Queen(7, 3, "queen", "white")
+  );
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_BISHOP1_ID,
+    new Bishop(7, 2, "bishop", "white")
+  );
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_BISHOP2_ID,
+    new Bishop(7, 5, "bishop", "white")
+  );
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_KNIGHT1_ID,
+    new Knight(7, 1, "knight", "white")
+  );
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_KNIGHT2_ID,
+    new Knight(7, 6, "knight", "white")
+  );
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_ROOK1_ID,
+    new Rook(7, 0, "rook", "white")
+  );
+  gameData.playerWhitePieceList.set(
+    kons.WHITE_ROOK2_ID,
+    new Rook(7, 7, "rook", "white")
+  );
   for (let i = 0; i < 8; i++) {
     gameData.playerWhitePieceList.set(
       `wp${i + 1}`,
@@ -87,14 +160,38 @@ const playerWhiteInit = function () {
 };
 
 const playerBlackInit = function (board) {
-  gameData.playerBlackPieceList.set("bk0", new King(0, 4, "king", "black"));
-  gameData.playerBlackPieceList.set("bq0", new Queen(0, 3, "queen", "black"));
-  gameData.playerBlackPieceList.set("bb1", new Bishop(0, 2, "bishop", "black"));
-  gameData.playerBlackPieceList.set("bb2", new Bishop(0, 5, "bishop", "black"));
-  gameData.playerBlackPieceList.set("bn1", new Knight(0, 1, "knight", "black"));
-  gameData.playerBlackPieceList.set("bn2", new Knight(0, 6, "knight", "black"));
-  gameData.playerBlackPieceList.set("br1", new Rook(0, 0, "rook", "black"));
-  gameData.playerBlackPieceList.set("br2", new Rook(0, 7, "rook", "black"));
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_KING_ID,
+    new King(0, 4, "king", "black")
+  );
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_QUEEN_ID,
+    new Queen(0, 3, "queen", "black")
+  );
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_BISHOP1_ID,
+    new Bishop(0, 2, "bishop", "black")
+  );
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_BISHOP2_ID,
+    new Bishop(0, 5, "bishop", "black")
+  );
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_KNIGHT1_ID,
+    new Knight(0, 1, "knight", "black")
+  );
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_KNIGHT2_ID,
+    new Knight(0, 6, "knight", "black")
+  );
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_ROOK1_ID,
+    new Rook(0, 0, "rook", "black")
+  );
+  gameData.playerBlackPieceList.set(
+    kons.BLACK_ROOK2_ID,
+    new Rook(0, 7, "rook", "black")
+  );
   for (let i = 0; i < 8; i++) {
     gameData.playerBlackPieceList.set(
       `bp${i + 1}`,

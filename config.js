@@ -28,8 +28,10 @@ export const QUEEN_MOVE_RANGE_DX = [0, 1, 0, -1, -1, 1, 1, -1];
 export const KING_MOVE_RANGE_DY = [-1, 0, 1, 0, -1, -1, 1, 1];
 export const KING_MOVE_RANGE_DX = [0, 1, 0, -1, -1, 1, 1, -1];
 
+export const PAWN_PROMOTION_LIST = ["Queen", "Bishop", "Knight", "Rook"];
+
 export const WHITE_KING_ID = "wk0";
-export const WHITE_QUEEN_ID = "wq0";
+export const WHITE_QUEEN_ID = "wq1";
 export const WHITE_BISHOP1_ID = "wb1";
 export const WHITE_BISHOP2_ID = "wb2";
 export const WHITE_KNIGHT1_ID = "wn1";
@@ -47,7 +49,7 @@ export const WHITE_PAWN7_ID = "wp7";
 export const WHITE_PAWN8_ID = "wp8";
 
 export const BLACK_KING_ID = "bk0";
-export const BLACK_QUEEN_ID = "bq0";
+export const BLACK_QUEEN_ID = "bq1";
 export const BLACK_BISHOP1_ID = "bb1";
 export const BLACK_BISHOP2_ID = "bb2";
 export const BLACK_KNIGHT1_ID = "bn1";

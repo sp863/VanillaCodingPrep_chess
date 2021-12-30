@@ -147,6 +147,19 @@ export const isOpponent = function (unit, oppElement) {
 /////////////////////////////////////////////////////////////////////////////////////
 // KING ON CHECK
 /////////////////////////////////////////////////////////////////////////////////////
+export const isCheckMate = function (turn) {
+  let king;
+  if (turn === "white") {
+    king = gameData.playerBlackPieceList.get(kons.BLACK_KING_ID);
+  } else {
+    king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
+  }
+  if (king._onCheck === true) {
+    console.log("checkmate");
+    return true;
+  }
+  return false;
+};
 
 export const updateKingOnCheck = function (tileEmpty, getElementOnTile) {
   isWhiteKingOnCheck(tileEmpty, getElementOnTile);

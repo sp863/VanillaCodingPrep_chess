@@ -36,6 +36,7 @@ const controlGame = function (e) {
       View.resetBoard(model.gameData);
       updateTurn();
       model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
+      model.isCheckMate(gamePlayStatus.turn);
     }
     gamePlayStatus.currentPiece = "";
   }

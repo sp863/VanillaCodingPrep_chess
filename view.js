@@ -68,18 +68,6 @@ class ChessView {
     this.#board.removeEventListener("click", handler);
   }
 
-  // addTargetTileHandler(status) {
-  //   this.#board.addEventListener("click", function (e) {
-  //     if (!status.validPiece) return;
-  //     console.log(e.target);
-  //   });
-  // }
-
-  // removeTargetTileHandler() {
-  //   this.#board.removeEventListener("click", this.addMovePieceHandler);
-  //   console.log("removed");
-  // }
-
   tileEmpty(tileY, tileX) {
     const tempBoard = document.getElementById("chessboard");
     // console.log(tempBoard.rows[tileY].cells[tileX]);

@@ -14,13 +14,6 @@ export const gameData = {
   playerTurn: "w",
 };
 
-const checkBoardRange = function (y, x) {
-  if (y < 0 || y >= BOARD_LENGTH || x < 0 || x >= BOARD_LENGTH) {
-    return false;
-  }
-  return true;
-};
-
 export const playersInit = function () {
   playerWhiteInit();
   playerBlackInit();

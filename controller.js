@@ -28,17 +28,14 @@ const movePieceHandler = function (e) {
 //   // if (gamePlayStatus.validPiece) checkMove();
 // };
 
-// const controlTile = function () {
-//   View.addTargetTileHandler(gamePlayStatus);
-// };
-
 gameInit();
+
+//////////////////////////////////////////////////////////
+// TESTING
 console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
 
-//////////////////////////////////////////////////////////
-// TESTING
 console.log(model.isBlackKingOnCheck(View.tileEmpty, View.getElementOnTile));
 console.log(model.isWhiteKingOnCheck(View.tileEmpty, View.getElementOnTile));
 

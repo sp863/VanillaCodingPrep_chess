@@ -263,3 +263,50 @@ const newUnitId = function (color, promoteTo) {
   id = firstLetter + secondLetter + thirdLetter;
   return id;
 };
+
+/////////////////////////////////////////////////////////////////////////////////////
+// Castling
+/////////////////////////////////////////////////////////////////////////////////////
+const checkCastling = function (id, turn, tileEmpty) {
+  const unit = gameData.totalPieceList.get(id);
+  if (unit._type !== "king" && unit._type !== "rook") return false;
+  let king, kingSideRook, queenSideRook;
+  if (turn === "white") {
+    king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
+    kingSideRook = gameData.playerWhitePieceList.get(kons.WHITE_ROOK2_ID);
+    queenSideRook = gameData.playerWhitePieceList.get(kons.WHITE_ROOK1_ID);
+  } else {
+    king = gameData.playerBlackPieceList.get(kons.BLACK_KING_ID);
+    kingSideRook = gameData.playerBlackPieceList.get(kons.BLACK_ROOK2_ID);
+    queenSideRook = gameData.playerBlackPieceList.get(kons.BLACK_ROOK1_ID);
+  }
+  isCastlingPossible(king, kingSideRook, queenSideRook);
+};
+
+const isCastlingPossible = function (
+  king,
+  kingSideRook,
+  queenSideRook,
+  tileEmpty
+) {
+  isKingSidePossible(king, kingSideRook, tileEmpty);
+  isQueenSidePossible(king, queenSideRook, tileEmpty);
+};
+
+const isKingSidePossible = function (king, kingSideRook, tileEmpty) {
+  const y = king._y;
+  const kingTileX = kingSideRook._x - 1;
+  const rookTileX = king._x + 1;
+  //1 king rook both isMoved false?
+  const bothNotMoved = king._isMoved && kingSideRook._isMoved;
+  //2 king rook between empty?
+  const kingBetweenRookEmpty =
+    tileEmpty(y, kingTileX) && tileEmpty(y, rookTileX);
+  //3 will king's target tile be on check?
+};
+
+const isQueenSidePossible = function (king, queenSideRook, tileEmpty) {
+  //1 king rook both isMoved false?
+  //2 king rook between empty?
+  //3 will king's target tile be on check?
+};

@@ -14,13 +14,16 @@ export const gameData = {
   playerWhitePieceList: new Map(),
   playerBlackPieceList: new Map(),
   totalPieceList: new Map(),
-  playerTurn: "w",
+  promotionChoice: ["queen", "bishop", "knight", "rook"],
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
 // PLAYER AND PIECES INITIALIZATION
 /////////////////////////////////////////////////////////////////////////////////////
 export const playersInit = function () {
+  gameData.playerWhitePieceList = new Map();
+  gameData.playerBlackPieceList = new Map();
+  gameData.totalPieceList = new Map();
   playerWhiteInit();
   playerBlackInit();
 };
@@ -209,10 +212,10 @@ export const checkPawnPromotion = function (id) {
   if (unit._y !== 7 && unit._y !== 0) return;
   let promoteTo = "";
   while (true) {
-    promoteTo = Number(prompt(PAWN_PROMOTION_MESSAGE));
+    promoteTo = Number(prompt(kons.PAWN_PROMOTION_MESSAGE));
     if (promoteTo >= 1 && promoteTo <= 4) break;
   }
-  promotePawn(id, gamePlayStatus.pawnName[promoteTo - 1]);
+  promotePawn(id, gameData.promotionChoice[promoteTo - 1]);
 };
 
 export const promotePawn = function (pawnId, promoteTo) {

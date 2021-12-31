@@ -1,11 +1,11 @@
 import * as model from "./model.js";
 import View from "./View.js";
-import { PAWN_PROMOTION_MESSAGE } from "./config.js";
+import { WHITE_KING_ID, BLACK_KING_ID } from "./config.js";
 
 const gamePlayStatus = {
   turn: "white",
   currentPiece: "",
-  pawnName: ["queen", "bishop", "knight", "rook"],
+  currentKing: "",
 };
 
 const gameInit = function () {
@@ -14,6 +14,13 @@ const gameInit = function () {
   model.updateTotalList();
   View.createBoard();
   View.updateBoard(model.gameData);
+  gamePlayStatusInit();
+  View.updateTurnInfo(gamePlayStatus.turn);
+};
+
+const gamePlayStatusInit = function () {
+  gamePlayStatus.turn = "white";
+  gamePlayStatus.currentPiece = "";
 };
 
 const controlGame = function (e) {
@@ -36,20 +43,29 @@ const controlGame = function (e) {
       View.resetBoard(model.gameData);
       updateTurn();
       model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
-      model.isCheckMate(gamePlayStatus.turn);
+      // View.renderOnCheckStatus(gamePlayStatus.currentKing);
+      if (model.isCheckMate(gamePlayStatus.turn)) {
+        View.renderGameOverPage(gamePlayStatus.turn);
+      }
     }
     gamePlayStatus.currentPiece = "";
   }
 };
 
 const updateTurn = function () {
-  if (gamePlayStatus.turn === "white") gamePlayStatus.turn = "black";
-  else gamePlayStatus.turn = "white";
+  if (gamePlayStatus.turn === "white") {
+    gamePlayStatus.turn = "black";
+    gamePlayStatus.currentKing = BLACK_KING_ID;
+  } else {
+    gamePlayStatus.turn = "white";
+    gamePlayStatus.currentKing = WHITE_KING_ID;
+  }
   View.updateTurnInfo(gamePlayStatus.turn);
 };
 
 gameInit();
 View.addBoardMovementHandler(controlGame);
+View.addRestartHandler(gameInit);
 
 //////////////////////////////////////////////////////////
 // TESTING

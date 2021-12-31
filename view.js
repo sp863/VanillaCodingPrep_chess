@@ -64,12 +64,17 @@ class ChessView {
     }
   }
 
-  choosePieceHandler() {
-    this.#board.addEventListener("click", function (e) {
-      const targetTD = e.target.closest("td");
-      console.log(targetTD);
-    });
+  renderGameOverPage(turn) {
+    let winner;
+    if (turn === "white") winner = "black";
+    else winner = "white";
+    document.querySelector(".game-over-page").classList.add("open");
+    document.querySelector(
+      ".checkmate-message"
+    ).textContent = `CheckMate on Player ${winner}`;
   }
+
+  renderOnCheckStatus() {}
 
   generatePieceHTML(key, piece) {
     return `
@@ -86,6 +91,14 @@ class ChessView {
   addBoardMovementHandler(handler) {
     this.#board.addEventListener("click", function (e) {
       handler(e);
+    });
+  }
+
+  addRestartHandler(handler) {
+    const restartBtn = document.querySelector(".restart-btn");
+    restartBtn.addEventListener("click", function (e) {
+      handler();
+      document.querySelector(".game-over-page").classList.remove("open");
     });
   }
 

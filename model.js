@@ -267,11 +267,11 @@ const newUnitId = function (color, promoteTo) {
 /////////////////////////////////////////////////////////////////////////////////////
 // Castling
 /////////////////////////////////////////////////////////////////////////////////////
-export const checkCastling = function (id, turn, tileEmpty, gamePlayStatus) {
-  const unit = gameData.totalPieceList.get(id);
+export const checkCastling = function (gamePlayStatus, tileEmpty) {
+  const unit = gameData.totalPieceList.get(gamePlayStatus.currentPiece);
   if (unit._type !== "king" && unit._type !== "rook") return false;
   let king, kingSideRook, queenSideRook;
-  if (turn === "white") {
+  if (gamePlayStatus.turn === "white") {
     king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
     kingSideRook = gameData.playerWhitePieceList.get(kons.WHITE_ROOK2_ID);
     queenSideRook = gameData.playerWhitePieceList.get(kons.WHITE_ROOK1_ID);

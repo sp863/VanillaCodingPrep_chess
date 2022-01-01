@@ -35,23 +35,9 @@ const controlGame = function (e) {
     ) {
       gamePlayStatus.currentPiece = targetTD.children[0].className;
       if (!gamePlayStatus.noToCastling) {
-        if (
-          model.checkCastling(
-            gamePlayStatus.currentPiece,
-            gamePlayStatus.turn,
-            View.tileEmpty,
-            gamePlayStatus
-          )
-        ) {
-          model.updateTotalList();
-          View.resetBoard(model.gameData);
-          updateTurn();
-          model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
-          if (model.isCheckMate(gamePlayStatus.turn)) {
-            View.renderGameOverPage(gamePlayStatus.turn);
-          }
-          gamePlayStatus.currentPiece = "";
-          gamePlayStatus.noToCastling = false;
+        if (model.checkCastling(gamePlayStatus, View.tileEmpty)) {
+          updateAfterMovement();
+          resetPlayStatus();
         }
       }
     }
@@ -60,17 +46,25 @@ const controlGame = function (e) {
     const tile = [targetTR.rowIndex, targetTD.cellIndex];
     if (model.unitMove(id, tile, View.tileEmpty, View.getElementOnTile)) {
       model.checkPawnPromotion(id);
-      model.updateTotalList();
-      View.resetBoard(model.gameData);
-      updateTurn();
-      model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
-      // View.renderOnCheckStatus(gamePlayStatus.currentKing);
-      if (model.isCheckMate(gamePlayStatus.turn)) {
-        View.renderGameOverPage(gamePlayStatus.turn);
-      }
+      updateAfterMovement();
     }
-    gamePlayStatus.currentPiece = "";
-    gamePlayStatus.noToCastling = false;
+    resetPlayStatus();
+  }
+};
+
+const resetPlayStatus = function () {
+  gamePlayStatus.currentPiece = "";
+  gamePlayStatus.noToCastling = false;
+};
+
+const updateAfterMovement = function () {
+  model.updateTotalList();
+  View.resetBoard(model.gameData);
+  updateTurn();
+  model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
+  // View.renderOnCheckStatus(gamePlayStatus.currentKing);
+  if (model.isCheckMate(gamePlayStatus.turn)) {
+    View.renderGameOverPage(gamePlayStatus.turn);
   }
 };
 

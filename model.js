@@ -301,18 +301,8 @@ const isCastlingPossible = function (
   if (!kingSide && !queenSide) return false;
 
   if (kingSide && queenSide) {
-    let castlingChoice;
-    while (true) {
-      castlingChoice = Number(prompt(kons.ASK_CASTLING_MESSAGE));
-      if (castlingChoice === 1 || castlingChoice === 2) break;
-    }
-    if (castlingChoice === 1) {
-      let castlingSide;
-      while (true) {
-        castlingSide = Number(prompt(kons.ASK_CASTLING_SIDE_MESSAGE));
-        if (castlingSide === 1 || castlingSide === 2) break;
-      }
-      if (castlingSide === 1) {
+    if (getCastlingChoice() === 1) {
+      if (getCastlingSide() === 1) {
         kingSideCastling(king, kingSideRook);
         return true;
       } else {
@@ -321,14 +311,8 @@ const isCastlingPossible = function (
       }
     }
     gamePlayStatus.noToCastling = true;
-    gamePlayStatus.currentPiece = "";
   } else if (kingSide || queenSide) {
-    let castlingChoice;
-    while (true) {
-      castlingChoice = Number(prompt(kons.ASK_CASTLING_MESSAGE));
-      if (castlingChoice === 1 || castlingChoice === 2) break;
-    }
-    if (castlingChoice === 1) {
+    if (getCastlingChoice() === 1) {
       if (kingSide) {
         kingSideCastling(king, kingSideRook);
         return true;
@@ -338,9 +322,26 @@ const isCastlingPossible = function (
       }
     }
     gamePlayStatus.noToCastling = true;
-    gamePlayStatus.currentPiece = "";
   }
   return false;
+};
+
+const getCastlingChoice = function () {
+  let castlingChoice;
+  while (true) {
+    castlingChoice = Number(prompt(kons.ASK_CASTLING_MESSAGE));
+    if (castlingChoice === 1 || castlingChoice === 2) break;
+  }
+  return castlingChoice;
+};
+
+const getCastlingSide = function () {
+  let castlingSide;
+  while (true) {
+    castlingSide = Number(prompt(kons.ASK_CASTLING_SIDE_MESSAGE));
+    if (castlingSide === 1 || castlingSide === 2) break;
+  }
+  return castlingSide;
 };
 
 const isKingSidePossible = function (king, kingSideRook, tileEmpty) {

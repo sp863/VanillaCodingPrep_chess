@@ -22,6 +22,9 @@ const gameInit = function () {
 const gamePlayStatusInit = function () {
   gamePlayStatus.turn = "white";
   gamePlayStatus.currentPiece = "";
+  gamePlayStatus.currentKing =
+    model.gameData.playerWhitePieceList.get(WHITE_KING_ID);
+  gamePlayStatus.noToCastling = false;
 };
 
 const controlGame = function (e) {
@@ -37,7 +40,7 @@ const controlGame = function (e) {
       if (!gamePlayStatus.noToCastling) {
         if (model.checkCastling(gamePlayStatus, View.tileEmpty)) {
           updateAfterMovement();
-          resetPlayStatus();
+          resetGamePlayStatus();
         }
       }
     }
@@ -48,11 +51,11 @@ const controlGame = function (e) {
       model.checkPawnPromotion(id);
       updateAfterMovement();
     }
-    resetPlayStatus();
+    resetGamePlayStatus();
   }
 };
 
-const resetPlayStatus = function () {
+const resetGamePlayStatus = function () {
   gamePlayStatus.currentPiece = "";
   gamePlayStatus.noToCastling = false;
 };
@@ -62,7 +65,7 @@ const updateAfterMovement = function () {
   View.resetBoard(model.gameData);
   updateTurn();
   model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
-  // View.renderOnCheckStatus(gamePlayStatus.currentKing);
+  View.renderOnCheckStatus(gamePlayStatus.currentKing);
   if (model.isCheckMate(gamePlayStatus.turn)) {
     View.renderGameOverPage(gamePlayStatus.turn);
   }
@@ -71,10 +74,12 @@ const updateAfterMovement = function () {
 const updateTurn = function () {
   if (gamePlayStatus.turn === "white") {
     gamePlayStatus.turn = "black";
-    gamePlayStatus.currentKing = BLACK_KING_ID;
+    gamePlayStatus.currentKing =
+      model.gameData.playerBlackPieceList.get(BLACK_KING_ID);
   } else {
     gamePlayStatus.turn = "white";
-    gamePlayStatus.currentKing = WHITE_KING_ID;
+    gamePlayStatus.currentKing =
+      model.gameData.playerWhitePieceList.get(WHITE_KING_ID);
   }
   View.updateTurnInfo(gamePlayStatus.turn);
 };
@@ -88,6 +93,7 @@ View.addRestartHandler(gameInit);
 console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
+console.log(gamePlayStatus.currentKing);
 
 // KING ON CHECK TESTING
 // console.log(model.isBlackKingOnCheck(View.tileEmpty, View.getElementOnTile));

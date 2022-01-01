@@ -74,7 +74,14 @@ class ChessView {
     ).textContent = `CheckMate on Player ${winner}`;
   }
 
-  renderOnCheckStatus() {}
+  renderOnCheckStatus(king) {
+    if (king._onCheck) {
+      document.querySelector(".on-check-status").style.backgroundColor =
+        "#d00000";
+      return;
+    }
+    document.querySelector(".on-check-status").style.backgroundColor = "white";
+  }
 
   generatePieceHTML(key, piece) {
     return `

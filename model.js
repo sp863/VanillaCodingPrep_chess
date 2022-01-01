@@ -369,7 +369,7 @@ const isQueenSidePossible = function (king, queenSideRook, tileEmpty) {
   const rookTileX = king._x - 1;
   const extraTileX = queenSideRook._x + 1;
   //1 king rook both isMoved false?
-  const bothNotMoved = !queenSideRook._isMoved && !queenSideRook._isMoved;
+  const bothNotMoved = !king._isMoved && !queenSideRook._isMoved;
   //2 king rook between empty?
   const kingBetweenRookEmpty =
     tileEmpty(y, kingTileX) &&

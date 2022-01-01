@@ -33,6 +33,21 @@ const controlGame = function (e) {
         ._color === gamePlayStatus.turn
     ) {
       gamePlayStatus.currentPiece = targetTD.children[0].className;
+      const castling = model.checkCastling(
+        gamePlayStatus.currentPiece,
+        gamePlayStatus.turn,
+        View.tileEmpty
+      );
+      if (castling) {
+        model.updateTotalList();
+        View.resetBoard(model.gameData);
+        updateTurn();
+        model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
+        if (model.isCheckMate(gamePlayStatus.turn)) {
+          View.renderGameOverPage(gamePlayStatus.turn);
+        }
+        gamePlayStatus.currentPiece = "";
+      }
     }
   } else {
     const id = gamePlayStatus.currentPiece;
@@ -72,7 +87,6 @@ View.addRestartHandler(gameInit);
 console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
-console.log(model.gameData.playerBlackPieceList.get("xx"));
 
 // KING ON CHECK TESTING
 // console.log(model.isBlackKingOnCheck(View.tileEmpty, View.getElementOnTile));

@@ -280,7 +280,7 @@ const checkCastling = function (id, turn, tileEmpty) {
     kingSideRook = gameData.playerBlackPieceList.get(kons.BLACK_ROOK2_ID);
     queenSideRook = gameData.playerBlackPieceList.get(kons.BLACK_ROOK1_ID);
   }
-  isCastlingPossible(king, kingSideRook, queenSideRook);
+  isCastlingPossible(king, kingSideRook, queenSideRook, tileEmpty);
 };
 
 const isCastlingPossible = function (
@@ -298,15 +298,51 @@ const isKingSidePossible = function (king, kingSideRook, tileEmpty) {
   const kingTileX = kingSideRook._x - 1;
   const rookTileX = king._x + 1;
   //1 king rook both isMoved false?
-  const bothNotMoved = king._isMoved && kingSideRook._isMoved;
+  const bothNotMoved = !king._isMoved && !kingSideRook._isMoved;
   //2 king rook between empty?
   const kingBetweenRookEmpty =
     tileEmpty(y, kingTileX) && tileEmpty(y, rookTileX);
   //3 will king's target tile be on check?
+  const willKingBeOnCheck = isTileOnCheck(king, kingTileX);
+  if (bothNotMoved && kingBetweenRookEmpty && !willKingBeOnCheck) {
+    return true;
+  }
+  return false;
 };
 
 const isQueenSidePossible = function (king, queenSideRook, tileEmpty) {
+  const y = king._y;
+  const kingTileX = queenSideRook._x + 2;
+  const rookTileX = king._x - 1;
+  const extraTileX = queenSideRook._x + 1;
   //1 king rook both isMoved false?
+  const bothNotMoved = !king._isMoved && !kingSideRook._isMoved;
   //2 king rook between empty?
+  const kingBetweenRookEmpty =
+    tileEmpty(y, kingTileX) &&
+    tileEmpty(y, rookTileX) &&
+    tileEmpty(y, extraTileX);
   //3 will king's target tile be on check?
+  const willKingBeOnCheck = isTileOnCheck(king, kingTileX);
+  if (bothNotMoved && kingBetweenRookEmpty && !willKingBeOnCheck) {
+    return true;
+  }
+  return false;
+};
+
+const isTileOnCheck = function (king, kingTileX) {
+  let opponentList;
+  if (king._color === "white") {
+    opponentList = gameData.playerBlackPieceList;
+  } else {
+    opponentList = gameData.playerWhitePieceList;
+  }
+  const kingTile = [king._y, kingTileX];
+  for (const [_, unit] of opponentList) {
+    if (unit._isValidMove(kingTile, tileEmpty)) {
+      console.log("tile will be on check " + king._onCheck);
+      return true;
+    }
+  }
+  return false;
 };

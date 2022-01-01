@@ -343,7 +343,7 @@ const isKingSidePossible = function (king, kingSideRook, tileEmpty) {
   const kingBetweenRookEmpty =
     tileEmpty(y, kingTileX) && tileEmpty(y, rookTileX);
   //3 will king's target tile be on check?
-  const willKingBeOnCheck = isTileOnCheck(king, kingTileX);
+  const willKingBeOnCheck = isTileOnCheck(king, kingTileX, tileEmpty);
   if (bothNotMoved && kingBetweenRookEmpty && !willKingBeOnCheck) {
     return true;
   }
@@ -357,14 +357,14 @@ const isQueenSidePossible = function (king, queenSideRook, tileEmpty) {
   const rookTileX = king._x - 1;
   const extraTileX = queenSideRook._x + 1;
   //1 king rook both isMoved false?
-  const bothNotMoved = !king._isMoved && !kingSideRook._isMoved;
+  const bothNotMoved = !queenSideRook._isMoved && !queenSideRook._isMoved;
   //2 king rook between empty?
   const kingBetweenRookEmpty =
     tileEmpty(y, kingTileX) &&
     tileEmpty(y, rookTileX) &&
     tileEmpty(y, extraTileX);
   //3 will king's target tile be on check?
-  const willKingBeOnCheck = isTileOnCheck(king, kingTileX);
+  const willKingBeOnCheck = isTileOnCheck(king, kingTileX, tileEmpty);
   if (bothNotMoved && kingBetweenRookEmpty && !willKingBeOnCheck) {
     return true;
   }
@@ -376,6 +376,8 @@ const kingSideCastling = function (king, kingSideRook) {
   const beforeRookX = kingSideRook._x;
   king._x = beforeRookX - 1;
   kingSideRook._x = beforeKingX + 1;
+  king._isMoved = true;
+  kingSideRook._isMoved = true;
 };
 
 const queenSideCastling = function (king, queenSideRook) {
@@ -383,9 +385,11 @@ const queenSideCastling = function (king, queenSideRook) {
   const beforeRookX = queenSideRook._x;
   king._x = beforeRookX + 2;
   queenSideRook._x = beforeKingX - 1;
+  king._isMoved = true;
+  queenSideRook._isMoved = true;
 };
 
-const isTileOnCheck = function (king, kingTileX) {
+const isTileOnCheck = function (king, kingTileX, tileEmpty) {
   let opponentList;
   if (king._color === "white") {
     opponentList = gameData.playerBlackPieceList;

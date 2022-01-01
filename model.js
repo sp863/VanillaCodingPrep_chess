@@ -267,7 +267,7 @@ const newUnitId = function (color, promoteTo) {
 /////////////////////////////////////////////////////////////////////////////////////
 // Castling
 /////////////////////////////////////////////////////////////////////////////////////
-export const checkCastling = function (id, turn, tileEmpty) {
+export const checkCastling = function (id, turn, tileEmpty, gamePlayStatus) {
   const unit = gameData.totalPieceList.get(id);
   if (unit._type !== "king" && unit._type !== "rook") return false;
   let king, kingSideRook, queenSideRook;
@@ -280,14 +280,21 @@ export const checkCastling = function (id, turn, tileEmpty) {
     kingSideRook = gameData.playerBlackPieceList.get(kons.BLACK_ROOK2_ID);
     queenSideRook = gameData.playerBlackPieceList.get(kons.BLACK_ROOK1_ID);
   }
-  return isCastlingPossible(king, kingSideRook, queenSideRook, tileEmpty);
+  return isCastlingPossible(
+    king,
+    kingSideRook,
+    queenSideRook,
+    tileEmpty,
+    gamePlayStatus
+  );
 };
 
 const isCastlingPossible = function (
   king,
   kingSideRook,
   queenSideRook,
-  tileEmpty
+  tileEmpty,
+  gamePlayStatus
 ) {
   const kingSide = isKingSidePossible(king, kingSideRook, tileEmpty);
   const queenSide = isQueenSidePossible(king, queenSideRook, tileEmpty);
@@ -313,6 +320,8 @@ const isCastlingPossible = function (
         return true;
       }
     }
+    gamePlayStatus.noToCastling = true;
+    gamePlayStatus.currentPiece = "";
   } else if (kingSide || queenSide) {
     let castlingChoice;
     while (true) {
@@ -328,6 +337,8 @@ const isCastlingPossible = function (
         return true;
       }
     }
+    gamePlayStatus.noToCastling = true;
+    gamePlayStatus.currentPiece = "";
   }
   return false;
 };

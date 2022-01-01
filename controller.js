@@ -6,6 +6,7 @@ const gamePlayStatus = {
   turn: "white",
   currentPiece: "",
   currentKing: "",
+  noToCastling: false,
 };
 
 const gameInit = function () {
@@ -33,20 +34,25 @@ const controlGame = function (e) {
         ._color === gamePlayStatus.turn
     ) {
       gamePlayStatus.currentPiece = targetTD.children[0].className;
-      const castling = model.checkCastling(
-        gamePlayStatus.currentPiece,
-        gamePlayStatus.turn,
-        View.tileEmpty
-      );
-      if (castling) {
-        model.updateTotalList();
-        View.resetBoard(model.gameData);
-        updateTurn();
-        model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
-        if (model.isCheckMate(gamePlayStatus.turn)) {
-          View.renderGameOverPage(gamePlayStatus.turn);
+      if (!gamePlayStatus.noToCastling) {
+        if (
+          model.checkCastling(
+            gamePlayStatus.currentPiece,
+            gamePlayStatus.turn,
+            View.tileEmpty,
+            gamePlayStatus
+          )
+        ) {
+          model.updateTotalList();
+          View.resetBoard(model.gameData);
+          updateTurn();
+          model.updateKingOnCheck(View.tileEmpty, View.getElementOnTile);
+          if (model.isCheckMate(gamePlayStatus.turn)) {
+            View.renderGameOverPage(gamePlayStatus.turn);
+          }
+          gamePlayStatus.currentPiece = "";
+          gamePlayStatus.noToCastling = false;
         }
-        gamePlayStatus.currentPiece = "";
       }
     }
   } else {
@@ -64,6 +70,7 @@ const controlGame = function (e) {
       }
     }
     gamePlayStatus.currentPiece = "";
+    gamePlayStatus.noToCastling = false;
   }
 };
 

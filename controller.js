@@ -72,6 +72,7 @@ View.addRestartHandler(gameInit);
 console.log(model.gameData.playerWhitePieceList);
 console.log(model.gameData.playerBlackPieceList);
 console.log(model.gameData.totalPieceList);
+console.log(model.gameData.playerBlackPieceList.get("xx"));
 
 // KING ON CHECK TESTING
 // console.log(model.isBlackKingOnCheck(View.tileEmpty, View.getElementOnTile));

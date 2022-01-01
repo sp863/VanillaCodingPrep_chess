@@ -68,3 +68,7 @@ export const BLACK_PAWN8_ID = "bp8";
 
 export const PAWN_PROMOTION_MESSAGE =
   "Promote your Pawn to ->\n1. Queen\n2. Bishop\n3. Knight\n4. Rook";
+
+export const ASK_CASTLING_MESSAGE = "Castle your king? ->\n1. YES\n2. NO";
+export const ASK_CASTLING_SIDE_MESSAGE =
+  "Choose Castling Side ->\n 1. King Side\n2. Queen Side";

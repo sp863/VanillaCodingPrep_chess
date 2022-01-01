@@ -289,11 +289,45 @@ const isCastlingPossible = function (
   queenSideRook,
   tileEmpty
 ) {
-  isKingSidePossible(king, kingSideRook, tileEmpty);
-  isQueenSidePossible(king, queenSideRook, tileEmpty);
+  const kingSide = isKingSidePossible(king, kingSideRook, tileEmpty);
+  const queenSide = isQueenSidePossible(king, queenSideRook, tileEmpty);
+  if (!kingSide && !queenSide) return;
+  if (kingSide && queenSide) {
+    let castlingChoice;
+    while (true) {
+      castlingChoice = Number(prompt(kons.ASK_CASTLING_MESSAGE));
+      if (castlingChoice === 1 || castlingChoice === 2) break;
+    }
+    if (castlingChoice === 1) {
+      let castlingSide;
+      while (true) {
+        castlingSide = Number(prompt(kons.ASK_CASTLING_SIDE_MESSAGE));
+        if (castlingSide === 1 || castlingSide === 2) break;
+      }
+      if (castlingSide === 1) {
+        kingSideCastling(king, kingSideRook);
+      } else {
+        queenSideCastling(king, queenSideRook);
+      }
+    }
+  } else if (kingSide || queenSide) {
+    let castlingChoice;
+    while (true) {
+      castlingChoice = Number(prompt(kons.ASK_CASTLING_MESSAGE));
+      if (castlingChoice === 1 || castlingChoice === 2) break;
+    }
+    if (castlingChoice === 1) {
+      if (kingSide) {
+        kingSideCastling(king, kingSideRook);
+      } else if (queenSide) {
+        queenSideCastling(king, queenSideRook);
+      }
+    }
+  }
 };
 
 const isKingSidePossible = function (king, kingSideRook, tileEmpty) {
+  if (!kingSideRook) return false;
   const y = king._y;
   const kingTileX = kingSideRook._x - 1;
   const rookTileX = king._x + 1;
@@ -311,6 +345,7 @@ const isKingSidePossible = function (king, kingSideRook, tileEmpty) {
 };
 
 const isQueenSidePossible = function (king, queenSideRook, tileEmpty) {
+  if (!queenSideRook) return false;
   const y = king._y;
   const kingTileX = queenSideRook._x + 2;
   const rookTileX = king._x - 1;
@@ -328,6 +363,20 @@ const isQueenSidePossible = function (king, queenSideRook, tileEmpty) {
     return true;
   }
   return false;
+};
+
+const kingSideCastling = function (king, kingSideRook) {
+  const beforeKingX = king._x;
+  const beforeRookX = kingSideRook._x;
+  king._x = beforeRookX - 1;
+  kingSideRook._x = beforeKingX + 1;
+};
+
+const queenSideCastling = function (king, queenSideRook) {
+  const beforeKingX = king._x;
+  const beforeRookX = queenSideRook._x;
+  king._x = beforeRookX + 2;
+  queenSideRook._x = beforeKingX - 1;
 };
 
 const isTileOnCheck = function (king, kingTileX) {

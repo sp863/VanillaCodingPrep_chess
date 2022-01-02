@@ -28,8 +28,42 @@ table {
   width: 80rem;
   height: 80rem;
   border-collapse: collapse;
-  border: 2.5rem solid #444;
-  display: relative;
+  border: 4rem solid #444;
+  /* transform: rotate(180deg); */
+}
+
+.chessboard-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.index-alpha {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 67rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0.5rem;
+}
+
+.index-number {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 70rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-right: 1rem;
 }
 
 td {
@@ -76,27 +110,35 @@ img:hover {
   text-transform: capitalize;
 }
 
+.gameplay-container {
+  position: relative;
+}
+
 .on-check-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -71%;
+  top: -2rem;
   background-color: white;
-  font-size: 1rem;
-  padding: 5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: white;
   text-transform: uppercase;
-  height: 10rem;
-  width: 10rem;
-  text-align: center;
-  vertical-align: middle;
-  top: 50%;
-  left: 50%;
+  height: 11rem;
+  width: 11rem;
+  border-radius: 50%;
 }
 
 .game-over-page {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  right: -32%;
+  width: 32%;
   height: 100vh;
-  transform: translateX(100%);
+  /* transform: translateX(100%); */
+  background-color: tomato;
 
   display: flex;
   flex-direction: column;
@@ -113,19 +155,20 @@ img:hover {
 }
 
 .open.game-over-page {
+  right: 0;
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
-  transform: translateX(0);
+  /* transform: translateX(0); */
 }
 
 .checkmate-message {
-  font-size: 8rem;
+  font-size: 3rem;
   letter-spacing: 0.2rem;
   text-transform: uppercase;
 }
 .game-over-message {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .restart-btn {
@@ -136,7 +179,7 @@ img:hover {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 6rem;
+  font-size: 4rem;
   letter-spacing: 0.3rem;
   text-transform: uppercase;
   padding: 3rem 6rem;

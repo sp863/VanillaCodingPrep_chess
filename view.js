@@ -72,6 +72,7 @@ class ChessView {
     document.querySelector(
       ".checkmate-message"
     ).textContent = `CheckMate on Player ${winner}`;
+    this.#board.classList.add("closed");
   }
 
   renderOnCheckStatus(king) {
@@ -106,6 +107,7 @@ class ChessView {
     restartBtn.addEventListener("click", function (e) {
       handler();
       document.querySelector(".game-over-page").classList.remove("open");
+      document.getElementById("chessboard").classList.remove("closed");
     });
   }
 

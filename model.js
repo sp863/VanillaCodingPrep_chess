@@ -137,6 +137,7 @@ export const unitMove = function (id, tile, tileEmpty, getElementOnTile) {
     unit._isMoved = true;
     return true;
   }
+  alert("Invalid Move");
   return false;
 };
 

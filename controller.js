@@ -30,10 +30,9 @@ const gamePlayStatusInit = function () {
 const controlGame = function (e) {
   const targetTR = e.target.closest("tr");
   const targetTD = e.target.closest("td");
-  if (gamePlayStatus.currentPiece === "") {
+  if (!gamePlayStatus.currentPiece) {
     if (
-      targetTD.children[0] !== undefined &&
-      model.gameData.totalPieceList.get(targetTD.children[0].className)
+      model.gameData.totalPieceList.get(targetTD.children[0]?.className)
         ._color === gamePlayStatus.turn
     ) {
       gamePlayStatus.currentPiece = targetTD.children[0].className;

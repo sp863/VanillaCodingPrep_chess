@@ -158,7 +158,7 @@ export const isCheckMate = function (turn) {
   } else {
     king = gameData.playerWhitePieceList.get(kons.WHITE_KING_ID);
   }
-  if (king._onCheck === true) {
+  if (king._onCheck) {
     console.log("checkmate");
     return true;
   }
@@ -357,7 +357,14 @@ const isKingSidePossible = function (king, kingSideRook, tileEmpty) {
     tileEmpty(y, kingTileX) && tileEmpty(y, rookTileX);
   //3 will king's target tile be on check?
   const willKingBeOnCheck = isTileOnCheck(king, kingTileX, tileEmpty);
-  if (bothNotMoved && kingBetweenRookEmpty && !willKingBeOnCheck) {
+  //4 will king be on check on the way to its target tile?
+  const willTileBeOnCheck = isTileOnCheck(king, rookTileX, tileEmpty);
+  if (
+    bothNotMoved &&
+    kingBetweenRookEmpty &&
+    !willKingBeOnCheck &&
+    !willTileBeOnCheck
+  ) {
     return true;
   }
   return false;
@@ -378,7 +385,14 @@ const isQueenSidePossible = function (king, queenSideRook, tileEmpty) {
     tileEmpty(y, extraTileX);
   //3 will king's target tile be on check?
   const willKingBeOnCheck = isTileOnCheck(king, kingTileX, tileEmpty);
-  if (bothNotMoved && kingBetweenRookEmpty && !willKingBeOnCheck) {
+  //4 will king be on check on the way to its target tile?
+  const willTileBeOnCheck = isTileOnCheck(king, rookTileX, tileEmpty);
+  if (
+    bothNotMoved &&
+    kingBetweenRookEmpty &&
+    !willKingBeOnCheck &&
+    !willTileBeOnCheck
+  ) {
     return true;
   }
   return false;

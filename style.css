@@ -84,6 +84,15 @@ td {
   vertical-align: middle;
 }
 
+/* td:hover {
+  background-color: purple !important;
+} */
+
+.picked-piece {
+  filter: invert(40%) sepia(76%) saturate(6521%) hue-rotate(359deg)
+    brightness(96%) contrast(113%) !important;
+}
+
 img {
   width: 70%;
   height: 70%;

@@ -3,6 +3,10 @@ import { BOARD_LENGTH } from "./config.js";
 class ChessView {
   #board = document.getElementById("chessboard");
 
+  clearBoard() {
+    this.#board.innerHTML = "";
+  }
+
   createBoard() {
     for (let i = 0; i < BOARD_LENGTH; i++) {
       const row = this.#board.insertRow();
@@ -42,14 +46,15 @@ class ChessView {
     }
   }
 
-  clearBoard() {
-    this.#board.innerHTML = "";
-  }
-
   resetBoard(gameData) {
     this.clearBoard();
     this.createBoard();
+    this.designBoard();
     this.updateBoard(gameData);
+  }
+
+  toggleHighLightPiece(img) {
+    img.classList.toggle("picked-piece");
   }
 
   updateTurnInfo(turn) {

@@ -6,6 +6,7 @@ const gamePlayStatus = {
   turn: "white",
   currentPiece: "",
   currentKing: "",
+  pickedElement: "",
   noToCastling: false,
 };
 
@@ -32,10 +33,13 @@ const controlGame = function (e) {
   const targetTD = e.target.closest("td");
   if (!gamePlayStatus.currentPiece) {
     if (
-      model.gameData.totalPieceList.get(targetTD.children[0]?.className)
+      targetTD.children[0] &&
+      model.gameData.totalPieceList.get(targetTD.children[0].className)
         ._color === gamePlayStatus.turn
     ) {
       gamePlayStatus.currentPiece = targetTD.children[0].className;
+      View.toggleHighLightPiece(targetTD.children[0].children[0]);
+      gamePlayStatus.pickedElement = targetTD.children[0].children[0];
       if (!gamePlayStatus.noToCastling) {
         if (model.checkCastling(gamePlayStatus, View.tileEmpty)) {
           updateAfterMovement();
@@ -50,12 +54,14 @@ const controlGame = function (e) {
       model.checkPawnPromotion(id);
       updateAfterMovement();
     }
+    View.toggleHighLightPiece(gamePlayStatus.pickedElement);
     resetGamePlayStatus();
   }
 };
 
 const resetGamePlayStatus = function () {
   gamePlayStatus.currentPiece = "";
+  gamePlayStatus.pickedElement = "";
   gamePlayStatus.noToCastling = false;
 };
 
